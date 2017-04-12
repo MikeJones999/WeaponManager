@@ -6,9 +6,11 @@ public abstract class Weapon : MonoBehaviour {
 	private GameObject weapon;
 
     private int health;
+    protected bool weaponLoaded;
+    protected int AmmoCount;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 
         //this transform.gameobject relates to the object in which the script is attached
 		weapon = transform.gameObject;			
@@ -16,6 +18,9 @@ public abstract class Weapon : MonoBehaviour {
 
 
     public abstract void Fire();
+
+    public abstract void FireAmmo();
+
 
     public void ReduceHealth(int damage)
     {
@@ -31,7 +36,12 @@ public abstract class Weapon : MonoBehaviour {
         return health;
     }
 
-	void OnMouseDown()
+    public abstract void LoadAmmo();
+    public abstract void SwitchAmmo(GameObject ammo, int ammoCount);
+
+
+
+    void OnMouseDown()
 	{
 		CameraManager.instance.FocusMe(weapon);
         WeaponsManager.instance.SetWeapon(this);      

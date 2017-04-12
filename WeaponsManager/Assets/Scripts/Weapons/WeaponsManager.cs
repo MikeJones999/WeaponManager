@@ -54,6 +54,21 @@ namespace Assets.Scripts.Weapons
         }
 
 
+        public void LoadAmmo()
+        {
+            if (!CameraManager.instance.inDefaultPosition)
+            {
+                if (currentWeapon != null)
+                {
+                    currentWeapon.LoadAmmo();
+                }
+            }
+            else
+            {
+                Debug.Log("No Weapon has been selected - you are in default view");
+            }
+
+        }
 
 
 
