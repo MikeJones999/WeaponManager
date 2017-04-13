@@ -9,7 +9,7 @@ namespace Assets.Scripts.Weapons
         public GameObject Catapult;
         public GameObject Ammo;
         public GameObject AmmoLoadPos;
-        private GameObject AmmoHolder;
+        private GameObject AmmoProjectile;
         public float ForceApplied;
 
         
@@ -37,26 +37,36 @@ namespace Assets.Scripts.Weapons
 
 
             //disconnect ammo from parent
-            var temp = AmmoHolder.transform.parent;
-            AmmoHolder.transform.parent = null;
+            var temp = AmmoProjectile.transform.parent;
+            AmmoProjectile.transform.parent = null;
 
-            AmmoHolder.GetComponent<Collider>().enabled = true;
+            AmmoProjectile.GetComponent<Collider>().enabled = true;
 
 
             //initialise rigidbody's gravity
-            AmmoHolder.GetComponent<Rigidbody>().useGravity = true;
+            AmmoProjectile.GetComponent<Rigidbody>().useGravity = true;
             //Get angle, if not 45deg set to 45deg
 
 
-            AmmoHolder.transform.Rotate (-45,90,0);
+            AmmoProjectile.transform.Rotate (-45,90,0);
 
             //addforce (fire) using ammo's force parameter
-            AmmoHolder.GetComponent<Rigidbody>().AddForce(AmmoHolder.transform.forward * ForceApplied, ForceMode.Acceleration);
+            AmmoProjectile.GetComponent<Rigidbody>().AddForce(AmmoProjectile.transform.forward * ForceApplied, ForceMode.Acceleration);
 
             //Weapon shown as not loaded
             weaponLoaded = false;
 
 
+            //camera follow until object destroyed
+            CameraFollowAmmo();
+        }
+
+
+        private void CameraFollowAmmo()
+        {
+            CameraManager.instance.FollowFiredAmmo(AmmoProjectile);
+            DestroyObject(AmmoProjectile, 3.0f);
+            //CameraManager.instance.StopFollowingFiredAmmo();
         }
 
 
@@ -76,11 +86,11 @@ namespace Assets.Scripts.Weapons
                 {  
                     if (AmmoLoadPos != null)
                     {
-                        AmmoHolder = Instantiate(Ammo, new Vector3(AmmoLoadPos.transform.position.x, AmmoLoadPos.transform.position.y + 0.15f, AmmoLoadPos.transform.position.z), Quaternion.identity) as GameObject;
+                        AmmoProjectile = Instantiate(Ammo, new Vector3(AmmoLoadPos.transform.position.x, AmmoLoadPos.transform.position.y + 0.15f, AmmoLoadPos.transform.position.z), Quaternion.identity) as GameObject;
 
-                        if (AmmoHolder != null)
+                        if (AmmoProjectile != null)
                         {
-                            AmmoHolder.transform.parent = AmmoLoadPos.transform;
+                            AmmoProjectile.transform.parent = AmmoLoadPos.transform;
                         }
 
                         //Instantiate(Ammo, new Vector3(loadPos.position.x, loadPos.position.y + 0.15f, loadPos.position.z), Quaternion.identity);
