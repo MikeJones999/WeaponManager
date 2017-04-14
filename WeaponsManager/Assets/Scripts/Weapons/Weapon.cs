@@ -8,18 +8,22 @@ public abstract class Weapon : MonoBehaviour {
     private int health;
     protected bool weaponLoaded;
     protected int AmmoCount;
+    protected float ProjectileForceApplied;
+    protected GameObject AmmoProjectile;
+    public float projectileDestroyDelay;
 
     // Use this for initialization
     void Start () {
 
         //this transform.gameobject relates to the object in which the script is attached
-		weapon = transform.gameObject;			
+		weapon = transform.gameObject;	
+        		
 	}
 
 
     public abstract void Fire();
 
-    public abstract void FireAmmo();
+    public abstract void FireProjectile();
 
 
     public void ReduceHealth(int damage)
@@ -47,6 +51,20 @@ public abstract class Weapon : MonoBehaviour {
         WeaponsManager.instance.SetWeapon(this);      
 	}
 
-  
+
+    public void DestroyFiredProjectile()
+    {
+        if (AmmoProjectile != null)
+        {
+            Destroy(AmmoProjectile, projectileDestroyDelay);
+        }
+    }
+
+    protected void CameraFollowProjectile()
+    {
+        CameraManager.instance.FollowFiredProjectile(AmmoProjectile);
+
+    }
+
 
 }

@@ -59,13 +59,13 @@ public class CameraManager : MonoBehaviour {
         DefaultPosition();
     }
 
-    public void FollowFiredAmmo(GameObject Ammo)
+    public void FollowFiredProjectile(GameObject Ammo)
     {
         projectile = Ammo;
         followingProjectile = true;
     }
 
-    public void StopFollowingFiredAmmo()
+    public void StopFollowingFiredProjectile()
     {
         followingProjectile = false;
         FocusMe(CurrentWeaponFocus);

@@ -38,7 +38,7 @@ namespace Assets.Scripts.Weapons
             }
         }
 
-        public void FireWeapon()
+        public void StartFireWeaponAnimation()
         {
             if (!CameraManager.instance.inDefaultPosition)
             {
@@ -68,6 +68,15 @@ namespace Assets.Scripts.Weapons
                 Debug.Log("No Weapon has been selected - you are in default view");
             }
 
+        }
+
+        public void DestroyFiredProjectile()
+        {
+            if (currentWeapon != null)
+            {
+                currentWeapon.DestroyFiredProjectile();
+            }
+            
         }
 
 

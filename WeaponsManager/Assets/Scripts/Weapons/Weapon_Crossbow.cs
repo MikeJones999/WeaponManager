@@ -10,7 +10,7 @@ public class Weapon_Crossbow : Weapon
 
         }
 
-    public override void FireAmmo()
+    public override void FireProjectile()
     {
         throw new NotImplementedException();
     }
