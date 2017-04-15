@@ -60,7 +60,7 @@ namespace Assets.Scripts.Weapons
             {
                 if (currentWeapon != null)
                 {
-                    currentWeapon.LoadAmmo();
+                    currentWeapon.LoadProjectile();
                 }
             }
             else
@@ -75,11 +75,16 @@ namespace Assets.Scripts.Weapons
             if (currentWeapon != null)
             {
                 currentWeapon.DestroyFiredProjectile();
+                StopWeaponShowingFiringInProgress();
             }
             
         }
 
 
+        private void StopWeaponShowingFiringInProgress()
+        {
+            currentWeapon.NoLongerFiringInProgress();
+        }
 
 
 

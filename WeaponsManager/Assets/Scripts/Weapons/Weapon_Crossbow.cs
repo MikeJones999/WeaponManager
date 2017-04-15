@@ -4,18 +4,13 @@ using UnityEngine;
 public class Weapon_Crossbow : Weapon
 {
 
-        public override void Fire()
-        {
-            Debug.Log("Fired : Crossbow");
-
-        }
-
+     
     public override void FireProjectile()
     {
         throw new NotImplementedException();
     }
 
-    public override void LoadAmmo()
+    public override void LoadProjectile()
     {
         throw new NotImplementedException();
     }

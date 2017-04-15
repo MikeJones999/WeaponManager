@@ -7,29 +7,12 @@ namespace Assets.Scripts.Weapons
 {
     public class Weapon_Catapult : Weapon
     {
-        public GameObject Catapult;
+        //public GameObject WeaponModel;
         public GameObject Ammo;
         public GameObject AmmoLoadPos;
         
 
         
-
-        public override void Fire()
-        {
-            if (weaponLoaded)
-            {
-                Debug.Log("Fired : Catapult");
-                Catapult.GetComponent<Animator>().Play("FireShot");
-                AmmoCount--;
-
-            }
-            else
-            {
-                Debug.Log("No ammo loaded - handle with UI notice!!!!");
-            }
-        }
-
-
         public override void FireProjectile()
         {
             //disconnect ammo from parent
@@ -56,11 +39,14 @@ namespace Assets.Scripts.Weapons
 
             //camera follow until object destroyed
             CameraFollowProjectile();
+
+            //tell camera manager that Animation has now stopped - so that it can follow the projectile
+            CameraManagerInformAnimationBeingPlayed(false);
         }
 
 
 
-        public override void LoadAmmo()
+        public override void LoadProjectile()
         {
 
             
@@ -69,7 +55,7 @@ namespace Assets.Scripts.Weapons
             SwitchAmmo(Ammo, 5);
 
             //if weapon currently doesn't have any projectiles attached then continue to load one
-            if (!weaponLoaded)
+            if ((!weaponLoaded) && (!projectileExists))
             {
                 if (Ammo != null && AmmoCount > 0)
                 {  
@@ -86,7 +72,8 @@ namespace Assets.Scripts.Weapons
                         {
                             AmmoProjectile.transform.parent = AmmoLoadPos.transform;
                             //Wepaon is now loaded so stop it being loaded at the moment
-                            weaponLoaded = true;
+                            this.weaponLoaded = true;
+                            this.projectileExists = true;
                         }
                         
                     }
@@ -94,8 +81,7 @@ namespace Assets.Scripts.Weapons
                     {
                         //Error Cant find loading pos
                         Debug.Log("Error Cant find loading pos for Ammo - or you have not identified it in the script");
-                    }
-                        
+                    }                       
                     
                 }
                 else
@@ -121,7 +107,7 @@ namespace Assets.Scripts.Weapons
 
         public override string ToString()
         {
-            return "Catapult";
+            return "WeaponModel";
         }
     }
 }

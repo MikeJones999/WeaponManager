@@ -1,4 +1,16 @@
-﻿using Assets.Scripts.Weapons;
+﻿/**
+ * Author - Mike Jones
+ * Weapons class is an Abstract class that all game objects that are designated weapons will inherit.
+ * All Weapons must be given the tag of "weapon";
+ * Upon clicking on a weapon model the mouse down function is call which informs the camera Manager to focus upon it.
+ * This Class also informs the Camera Manager to follow the projectile that is shot
+ * This class handles the destruction of the Projectile - which is  originates from the projectile itself
+ * FireProjectile method has to be handles by the weapon model class itself (e.g Weapon_Catapult - which would inherit from this class) as this gets called by the animation
+ * ProjectileExists - relates to the projectile that has been loaded and fired. That means if you load another projectile and fire it - it will only happen after the other projectile has been identified as ready for destruction (in memory)
+ * 
+ * */
+
+using Assets.Scripts.Weapons;
 using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour {
@@ -7,10 +19,13 @@ public abstract class Weapon : MonoBehaviour {
 
     private int health;
     protected bool weaponLoaded;
+    protected bool projectileExists;
+    protected static bool firingInProgress;
     protected int AmmoCount;
     protected float ProjectileForceApplied;
     protected GameObject AmmoProjectile;
     public float projectileDestroyDelay;
+    public GameObject WeaponModel;
 
     // Use this for initialization
     void Start () {
@@ -21,7 +36,26 @@ public abstract class Weapon : MonoBehaviour {
 	}
 
 
-    public abstract void Fire();
+    public void Fire()
+    {
+        if (weaponLoaded)
+        {
+            firingInProgress = true;
+            Debug.Log("Fired : weapon");
+            WeaponModel.GetComponent<Animator>().Play("FireShot");
+            AmmoCount--;
+            //weapon is firing - so cannot choose default view or another weapon
+            
+
+            //tell camera manager that Animation has now started - so that Default mode cannot be pressed
+            CameraManagerInformAnimationBeingPlayed(true);
+
+        }
+        else
+        {
+            Debug.Log("No ammo loaded - handle with UI notice!!!!");
+        }
+    }
 
     public abstract void FireProjectile();
 
@@ -40,15 +74,18 @@ public abstract class Weapon : MonoBehaviour {
         return health;
     }
 
-    public abstract void LoadAmmo();
+    public abstract void LoadProjectile();
     public abstract void SwitchAmmo(GameObject ammo, int ammoCount);
 
 
 
     void OnMouseDown()
 	{
-		CameraManager.instance.FocusMe(weapon);
-        WeaponsManager.instance.SetWeapon(this);      
+        if (!firingInProgress)
+        {
+            CameraManager.instance.FocusMe(weapon);
+            WeaponsManager.instance.SetWeapon(this);
+        }
 	}
 
 
@@ -56,7 +93,9 @@ public abstract class Weapon : MonoBehaviour {
     {
         if (AmmoProjectile != null)
         {
+            
             Destroy(AmmoProjectile, projectileDestroyDelay);
+            projectileExists = false;
         }
     }
 
@@ -64,6 +103,16 @@ public abstract class Weapon : MonoBehaviour {
     {
         CameraManager.instance.FollowFiredProjectile(AmmoProjectile);
 
+    }
+
+    protected void CameraManagerInformAnimationBeingPlayed(bool status)
+    {      
+        CameraManager.instance.SetWeaponAnimInProgress(status);
+    }
+
+    public void NoLongerFiringInProgress()
+    {
+        firingInProgress = false;
     }
 
 
