@@ -138,8 +138,11 @@ public class CameraManager : MonoBehaviour {
     {
         if (followingProjectile && !WeaponAnimInProgress)
         {
-            Vector3 projectilePos = projectile.transform.position;
-            Camera.main.transform.position = new Vector3(projectilePos.x - offset, projectilePos.y + 2, projectilePos.z);
+            if (projectile != null)
+            {
+                Vector3 projectilePos = projectile.transform.position;
+                Camera.main.transform.position = new Vector3(projectilePos.x - offset, projectilePos.y + 2, projectilePos.z);
+            }
         }
     }
 

@@ -8,8 +8,8 @@ namespace Assets.Scripts.Weapons
     public class Weapon_Catapult : Weapon
     {
         //public GameObject WeaponModel;
-        public GameObject Ammo;
-        public GameObject AmmoLoadPos;
+        //public GameObject Ammo;
+        //public GameObject AmmoLoadPos;
         
 
         
@@ -71,7 +71,7 @@ namespace Assets.Scripts.Weapons
                         if (AmmoProjectile != null)
                         {
                             AmmoProjectile.transform.parent = AmmoLoadPos.transform;
-                            //Wepaon is now loaded so stop it being loaded at the moment
+                            //Weapon is now loaded so stop it being loaded at the moment
                             this.weaponLoaded = true;
                             this.projectileExists = true;
                         }

@@ -26,6 +26,8 @@ public abstract class Weapon : MonoBehaviour {
     protected GameObject AmmoProjectile;
     public float projectileDestroyDelay;
     public GameObject WeaponModel;
+    public GameObject Ammo;
+    public GameObject AmmoLoadPos;
 
     // Use this for initialization
     void Start () {
@@ -36,7 +38,7 @@ public abstract class Weapon : MonoBehaviour {
 	}
 
 
-    public void Fire()
+    public virtual void Fire()
     {
         if (weaponLoaded)
         {
