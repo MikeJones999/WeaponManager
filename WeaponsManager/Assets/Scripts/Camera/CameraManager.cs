@@ -60,6 +60,10 @@ public class CameraManager : MonoBehaviour {
                 var pos = weapon.transform.position;
                 MoveCameraToAWeaponPos(pos);
             }
+            else
+            {
+                Debug.Log("Weapon already selected");
+            }
         }
 
     }
@@ -90,8 +94,9 @@ public class CameraManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        inDefaultPosition = true;
-        Camera.main.transform.position = cameraDefault.transform.position;
+        DefaultPosition();
+
+        //Camera.main.transform.position = cameraDefault.transform.position;
        // Camera.main.transform.rotation = cameraDefault.transform.rotation;
     }
 
@@ -103,20 +108,27 @@ public class CameraManager : MonoBehaviour {
      * */
     public void MoveToDefaultPos()
     {
-        if (!followingProjectile && !WeaponAnimInProgress)
+        if (!inDefaultPosition)
         {
-            DefaultPosition();
+            if (!followingProjectile && !WeaponAnimInProgress)
+            {
+                DefaultPosition();
+            }
+            else
+            {
+                Debug.Log("Cannot change to default view - as following Projectile");
+            }
         }
         else
         {
-            Debug.Log("Cannot change to default view - as following Projectile");
+            Debug.Log("Already in default view");
         }
     }
 
 
     /**
      * Follows the projectile that has most recently been shot
-     * Once shot the responsibility of the collision lays with teh projectile object and not the camera manager
+     * Once shot the responsibility of the collision lays with the projectile object and not the camera manager
      * 
      * */
     public void FollowFiredProjectile(GameObject Ammo)

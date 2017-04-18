@@ -33,24 +33,34 @@ public abstract class Weapon : MonoBehaviour {
     void Start () {
 
         //this transform.gameobject relates to the object in which the script is attached
-		weapon = transform.gameObject;	
-        		
-	}
+		weapon = transform.gameObject;
+        weaponLoaded = false;
+        projectileExists = false;
+        
+
+}
 
 
     public virtual void Fire()
     {
         if (weaponLoaded)
         {
-            firingInProgress = true;
-            Debug.Log("Fired : weapon");
-            WeaponModel.GetComponent<Animator>().Play("FireShot");
-            AmmoCount--;
-            //weapon is firing - so cannot choose default view or another weapon
-            
+            if (!firingInProgress)
+            {
+                firingInProgress = true;
+                Debug.Log("Fired : weapon");
+                WeaponModel.GetComponent<Animator>().Play("FireShot");
+                AmmoCount--;
+                //weapon is firing - so cannot choose default view or another weapon
 
-            //tell camera manager that Animation has now started - so that Default mode cannot be pressed
-            CameraManagerInformAnimationBeingPlayed(true);
+
+                //tell camera manager that Animation has now started - so that Default mode cannot be pressed
+                CameraManagerInformAnimationBeingPlayed(true);
+            }
+            else
+            {
+                Debug.Log("Currently firing in progress - handle with UI notice!!!!");
+            }
 
         }
         else
@@ -94,9 +104,17 @@ public abstract class Weapon : MonoBehaviour {
     public void DestroyFiredProjectile()
     {
         if (AmmoProjectile != null)
-        {
-            
+        {            
             Destroy(AmmoProjectile, projectileDestroyDelay);
+            projectileExists = false;
+        }
+    }
+
+    public void DestroyFiredProjectile(GameObject projectile)
+    {
+        if (projectile != null)        {
+
+            Destroy(projectile, projectileDestroyDelay);
             projectileExists = false;
         }
     }

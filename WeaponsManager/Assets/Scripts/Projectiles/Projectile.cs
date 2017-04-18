@@ -35,7 +35,8 @@ namespace Assets.Scripts.Projectiles
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.transform.tag != "Weapon")
+            //***MJ*** Changed from  tag = "" as this is apparently heavy on teh garbage collector
+            if (!collision.transform.CompareTag("Weapon"))
             {
                 //call the stated function after the given time - the time should be a global variable that we decide upon
                 Invoke("StopProjectileFromBeingFollowed", 4.0f);                 
@@ -49,7 +50,7 @@ namespace Assets.Scripts.Projectiles
         private void StopProjectileFromBeingFollowed()
         {
             CameraManager.instance.StopFollowingFiredProjectile();
-            WeaponsManager.instance.DestroyFiredProjectile();
+            WeaponsManager.instance.DestroyFiredProjectile(this.gameObject);
         }
 
     }

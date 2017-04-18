@@ -70,11 +70,11 @@ namespace Assets.Scripts.Weapons
 
         }
 
-        public void DestroyFiredProjectile()
+        public void DestroyFiredProjectile(GameObject projectile)
         {
-            if (currentWeapon != null)
+            if (projectile != null)
             {
-                currentWeapon.DestroyFiredProjectile();
+                currentWeapon.DestroyFiredProjectile(projectile);
                 StopWeaponShowingFiringInProgress();
             }
             

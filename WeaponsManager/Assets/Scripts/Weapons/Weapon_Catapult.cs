@@ -15,6 +15,7 @@ namespace Assets.Scripts.Weapons
         
         public override void FireProjectile()
         {
+
             //disconnect ammo from parent
            // var temp = AmmoProjectile.transform.parent;
             AmmoProjectile.transform.parent = null;
