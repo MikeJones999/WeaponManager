@@ -16,8 +16,11 @@ namespace Assets.Scripts.Weapons
         public override void FireProjectile()
         {
 
-            //disconnect ammo from parent
-           // var temp = AmmoProjectile.transform.parent;
+            //disconnect ammo from parent - however keep the object in memory to align the ball when  firing
+            var parentObj = AmmoProjectile.transform.parent;
+            //as we are going to rotate the parent obj - will need to rotate it back - thus get its default rotation for later
+            var temp = AmmoProjectile.transform.parent.rotation;
+            //disconnect from paent
             AmmoProjectile.transform.parent = null;
 
             //enable the collider on the ammo so it can connect with other objects
@@ -28,12 +31,17 @@ namespace Assets.Scripts.Weapons
             AmmoProjectile.GetComponent<Rigidbody>().useGravity = true;
             //Get angle, if not 45deg set to 45deg
 
+            //rotate the parent object - as below - cant seem to rotate the projectile the same
+            parentObj.Rotate(-45, 180, 0);
 
-            AmmoProjectile.transform.Rotate (-45,90,0);
+           // AmmoProjectile.transform.Rotate (-45,90,0);
+            
 
-            //addforce (fire) using ammo's force parameter
-            AmmoProjectile.GetComponent<Rigidbody>().AddForce(AmmoProjectile.transform.forward * ProjectileForceApplied, ForceMode.Acceleration);
+            //addforce (fire) using projectile's parent forward force parameter
+            AmmoProjectile.GetComponent<Rigidbody>().AddForce(parentObj.forward * ProjectileForceApplied, ForceMode.Acceleration);
 
+            //now rotate parent object back to as its default
+            parentObj.rotation = temp;
             //Weapon shown as not loaded
             weaponLoaded = false;
 
@@ -48,9 +56,7 @@ namespace Assets.Scripts.Weapons
 
 
         public override void LoadProjectile()
-        {
-
-            
+        {            
 
             //test purposes
             SwitchAmmo(Ammo, 5);
@@ -62,7 +68,8 @@ namespace Assets.Scripts.Weapons
                 {  
                     if (AmmoLoadPos != null)
                     {
-                       //There is a a position attached to the weapon that an object can be created at - therefore create a copy of the ammo prefab (attached to this script) and place it at AmmoLoadPos
+                        
+                        //There is a a position attached to the weapon that an object can be created at - therefore create a copy of the ammo prefab (attached to this script) and place it at AmmoLoadPos
                         AmmoProjectile = Instantiate(Ammo, new Vector3(AmmoLoadPos.transform.position.x, AmmoLoadPos.transform.position.y + 0.15f, AmmoLoadPos.transform.position.z), Quaternion.identity) as GameObject;
                         
                         //Now that the object is created - get the script attached to it called projectile - and then get the force of this particular projectile type. - Projectile is an abstract class. This saves us having to hard code the value each time for different projectiles
@@ -109,6 +116,33 @@ namespace Assets.Scripts.Weapons
         public override string ToString()
         {
             return "WeaponModel";
+        }
+
+
+        public override void SpecificWeaponMovement()
+        {
+            rotateY += Input.GetAxis("Mouse X") * sensitivity;
+            //rotation.y += Input.GetAxis("Mouse X") * sensitivity;
+
+            //Used to set the ball forward on first click
+            if (rotateY == 0.0f)
+            {
+                rotateY = -90;
+            }
+            rotateY = Mathf.Clamp(rotateY, 45.0f, 130.0f);
+            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, -rotateY, transform.localEulerAngles.z);
+            if (weaponLoaded)
+            {
+                AmmoProjectile.transform.rotation = AmmoProjectile.transform.parent.rotation;
+            }
+        }
+
+        void Update()
+        {
+            if (isMouseDown)
+            {
+                SpecificWeaponMovement();
+            }
         }
     }
 }

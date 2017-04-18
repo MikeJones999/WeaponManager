@@ -113,6 +113,10 @@ public class Weapon_Crossbow : Weapon
 
     }
 
+    public override void SpecificWeaponMovement()
+    {
+        throw new NotImplementedException();
+    }
 
     public override void SwitchAmmo(GameObject ammo, int ammoCount)
     {

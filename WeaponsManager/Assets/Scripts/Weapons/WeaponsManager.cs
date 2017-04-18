@@ -54,7 +54,7 @@ namespace Assets.Scripts.Weapons
         }
 
 
-        public void LoadAmmo()
+        public void LoadProjectile()
         {
             if (!CameraManager.instance.inDefaultPosition)
             {
@@ -70,6 +70,10 @@ namespace Assets.Scripts.Weapons
 
         }
 
+        /**
+         * Informs the current weapon that the one of its projectiles needs to be destroyed
+         * 
+         */
         public void DestroyFiredProjectile(GameObject projectile)
         {
             if (projectile != null)
@@ -80,7 +84,9 @@ namespace Assets.Scripts.Weapons
             
         }
 
-
+        /**
+         *Inform the weapon that fired that it is no longer firing
+         */
         private void StopWeaponShowingFiringInProgress()
         {
             currentWeapon.NoLongerFiringInProgress();

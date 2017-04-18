@@ -138,7 +138,7 @@ public class CameraManager : MonoBehaviour {
     }
 
     /**
-     *Stops the camera from following teh most recently shot projectile 
+     *Stops the camera from following the most recently shot projectile 
      */
     public void StopFollowingFiredProjectile()
     {
@@ -167,6 +167,15 @@ public class CameraManager : MonoBehaviour {
     public void SetWeaponAnimInProgress(bool status)
     {
         this.WeaponAnimInProgress = status;
+    }
+
+    public GameObject GetCurrentWeaponFocus()
+    {
+        if (CurrentWeaponFocus != null)
+        {
+            return CurrentWeaponFocus;
+        }
+        return null;
     }
 
 }

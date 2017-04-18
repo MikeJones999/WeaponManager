@@ -16,10 +16,11 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour {
 
 	private GameObject weapon;
-
+    protected bool isMouseDown;
     private int health;
     protected bool weaponLoaded;
     protected bool projectileExists;
+    
     protected static bool firingInProgress;
     protected int AmmoCount;
     protected float ProjectileForceApplied;
@@ -29,6 +30,10 @@ public abstract class Weapon : MonoBehaviour {
     public GameObject Ammo;
     public GameObject AmmoLoadPos;
 
+    protected float rotateX;
+    protected float rotateY;
+    public float sensitivity;
+
     // Use this for initialization
     void Start () {
 
@@ -36,9 +41,9 @@ public abstract class Weapon : MonoBehaviour {
 		weapon = transform.gameObject;
         weaponLoaded = false;
         projectileExists = false;
-        
+        isMouseDown = false;
 
-}
+    }
 
 
     public virtual void Fire()
@@ -90,17 +95,33 @@ public abstract class Weapon : MonoBehaviour {
     public abstract void SwitchAmmo(GameObject ammo, int ammoCount);
 
 
-
+    /**
+     * On mouse clicking on weapon object focus on me - camera manager decides if the view is already current
+     * */
     void OnMouseDown()
 	{
         if (!firingInProgress)
         {
-            CameraManager.instance.FocusMe(weapon);
-            WeaponsManager.instance.SetWeapon(this);
+            if (CameraManager.instance.GetCurrentWeaponFocus() != this.gameObject)
+            {
+                CameraManager.instance.FocusMe(weapon);
+                WeaponsManager.instance.SetWeapon(this);
+            }
+            else
+            {
+                isMouseDown = true;
+            }
         }
 	}
 
+    void OnMouseUp()
+    {
+        isMouseDown = false;
+    }
 
+    /**
+     * Destroy the current projectile
+     * */
     public void DestroyFiredProjectile()
     {
         if (AmmoProjectile != null)
@@ -110,6 +131,10 @@ public abstract class Weapon : MonoBehaviour {
         }
     }
 
+    /**
+     * Destroy the passed projectile 
+     * This overload method ensures that the correct projectile is deleted and not any projectile that would follow
+     * */
     public void DestroyFiredProjectile(GameObject projectile)
     {
         if (projectile != null)        {
@@ -119,6 +144,10 @@ public abstract class Weapon : MonoBehaviour {
         }
     }
 
+    /**
+     * Requests that the camera manager should follow the projectile
+     * Camera manager handles this and decides if it can or is there is an animation in progress
+     */
     protected void CameraFollowProjectile()
     {
         CameraManager.instance.FollowFiredProjectile(AmmoProjectile);
@@ -130,10 +159,14 @@ public abstract class Weapon : MonoBehaviour {
         CameraManager.instance.SetWeaponAnimInProgress(status);
     }
 
+
     public void NoLongerFiringInProgress()
     {
         firingInProgress = false;
     }
+
+
+    public abstract void SpecificWeaponMovement();
 
 
 }
