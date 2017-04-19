@@ -12,6 +12,7 @@
 
 using Assets.Scripts.Weapons;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public abstract class Weapon : MonoBehaviour {
 
@@ -100,16 +101,20 @@ public abstract class Weapon : MonoBehaviour {
      * */
     void OnMouseDown()
 	{
-        if (!firingInProgress)
+        //***MW*** 19/04/2017 Handles the button interaction - if not clicking on ui then call underlining code
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            if (CameraManager.instance.GetCurrentWeaponFocus() != this.gameObject)
+            if (!firingInProgress)
             {
-                CameraManager.instance.FocusMe(weapon);
-                WeaponsManager.instance.SetWeapon(this);
-            }
-            else
-            {
-                isMouseDown = true;
+                if (CameraManager.instance.GetCurrentWeaponFocus() != this.gameObject)
+                {
+                    CameraManager.instance.FocusMe(weapon);
+                    WeaponsManager.instance.SetWeapon(this);
+                }
+                else
+                {
+                    isMouseDown = true;
+                }
             }
         }
 	}

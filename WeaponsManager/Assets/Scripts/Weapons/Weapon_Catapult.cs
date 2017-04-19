@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Weapons
 {
+    [System.Runtime.InteropServices.Guid("04047D65-BE9A-4DA7-A225-F810853AC70E")]
     public class Weapon_Catapult : Weapon
     {
         //public GameObject WeaponModel;
@@ -115,10 +116,12 @@ namespace Assets.Scripts.Weapons
 
         public override string ToString()
         {
-            return "WeaponModel";
+            return "WeaponModel: Catapult";
         }
 
-
+         /**
+         * Moves the Stated weapon in the desired way - each object will behave differently hence why this is not inherited
+         */
         public override void SpecificWeaponMovement()
         {
             rotateY += Input.GetAxis("Mouse X") * sensitivity;

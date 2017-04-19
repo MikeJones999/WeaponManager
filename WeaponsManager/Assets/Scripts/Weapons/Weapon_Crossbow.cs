@@ -86,7 +86,7 @@ public class Weapon_Crossbow : Weapon
                     //If the object is actually created then attach it to the AmmoLoadPos - so that it will follow it during any animation
                     if (AmmoProjectile != null)
                     {
-                       // AmmoProjectile.transform.parent = AmmoLoadPos.transform;
+                        AmmoProjectile.transform.parent = AmmoLoadPos.transform;
                         //Wepaon is now loaded so stop it being loaded at the moment
                         this.weaponLoaded = true;
                         this.projectileExists = true;
@@ -113,9 +113,26 @@ public class Weapon_Crossbow : Weapon
 
     }
 
+    /**
+     * Moves the Stated weapon in the desired way - each object will behave differently hence why this is not inherited
+     */
     public override void SpecificWeaponMovement()
     {
-        throw new NotImplementedException();
+        rotateY += Input.GetAxis("Mouse X") * sensitivity;
+        //rotation.y += Input.GetAxis("Mouse X") * sensitivity;
+
+        //Used to set the ball forward on first click
+        if (rotateY == 0.0f)
+        {
+            rotateY = 175.0f;
+        }
+        rotateY = Mathf.Clamp(rotateY, -45.0f, 45.0f);
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, -rotateY, transform.localEulerAngles.z);
+        if (weaponLoaded)
+        {
+            //AmmoProjectile.transform.rotation = transform.rotation;
+            AmmoProjectile.transform.Rotate(0, -90, 0);
+        }
     }
 
     public override void SwitchAmmo(GameObject ammo, int ammoCount)
@@ -126,7 +143,15 @@ public class Weapon_Crossbow : Weapon
 
     public override string ToString()
         {
-            return "Crossbow";
+            return "WeaponModel: Crossbow";
         }
+
+    void Update()
+    {
+        if (isMouseDown)
+        {
+            SpecificWeaponMovement();
+        }
+    }
 
 }
