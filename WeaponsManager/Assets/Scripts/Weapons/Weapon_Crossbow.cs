@@ -119,19 +119,25 @@ public class Weapon_Crossbow : Weapon
     public override void SpecificWeaponMovement()
     {
         rotateY += Input.GetAxis("Mouse X") * sensitivity;
-        //rotation.y += Input.GetAxis("Mouse X") * sensitivity;
+		//rotation.y += Input.GetAxis("Mouse X") * sensitivity;
 
-        //Used to set the ball forward on first click
-        if (rotateY == 0.0f)
+		//added rotation up and down for crossbow
+		rotateX += Input.GetAxis("Mouse Y") * sensitivity;
+
+		//Used to set the ball forward on first click
+		if (rotateY == 0.0f)
         {
             rotateY = 175.0f;
         }
         rotateY = Mathf.Clamp(rotateY, -45.0f, 45.0f);
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, -rotateY, transform.localEulerAngles.z);
+
+		//added rotation up and down for crossbow - limits the collision with the ground - issue with rigid body
+		rotateX = Mathf.Clamp(rotateX, -8.0f, 5.0f);
+		transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, -rotateY, -rotateX);
         if (weaponLoaded)
         {
-            //AmmoProjectile.transform.rotation = transform.rotation;
-            AmmoProjectile.transform.Rotate(0, -90, 0);
+            AmmoProjectile.transform.rotation = transform.rotation;
+           // AmmoProjectile.transform.Rotate(0, -90, 0);
         }
     }
 
