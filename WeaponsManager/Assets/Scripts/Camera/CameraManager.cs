@@ -10,6 +10,8 @@ public class CameraManager : MonoBehaviour {
     private bool WeaponAnimInProgress;
     private GameObject projectile;
     public float offset;
+	public float offsetCamX;
+	public float offsetCamY;
 
 
     void Awake()
@@ -34,8 +36,23 @@ public class CameraManager : MonoBehaviour {
         Camera.main.transform.position = cameraDefault.transform.position;
         Camera.main.transform.rotation = cameraDefault.transform.rotation;
         CurrentWeaponFocus = null;
-    }
+		HideUiForDefaultPos();
 
+	}
+
+	//Use this Method to Hide User Interface elements when in default position
+	//**NOT YET IMPLEMENTED***
+	void HideUiForDefaultPos()
+	{
+		foreach (Camera cam in Camera.allCameras)
+		{
+			if (cam.CompareTag("UiCamera"))
+			{
+				//stop the UiCamera so dont need the for loop again
+				//need to get canvas then hide the buttons we dont need
+			}
+		}
+	}
 
     /**
      * Focuses the Camera to the weapon that has been clicked on - if the weapon is already the current weapon then do nothing
@@ -84,9 +101,10 @@ public class CameraManager : MonoBehaviour {
     private void MoveCameraToAWeaponPos(Vector3 pos)
     { 
         inDefaultPosition = false;
-        var offset = new Vector3(pos.x - 5.5f, pos.y + 1.5f, pos.z - 3);
+		//        var offset = new Vector3(pos.x - 5.5f, pos.y + 1.5f, pos.z - 3);
+		var CamOffset = new Vector3(pos.x - offsetCamX, pos.y + offsetCamY, pos.z);
 
-        Camera.main.transform.position = offset;
+		Camera.main.transform.position = CamOffset;
         Camera.main.transform.LookAt(pos);
     }
 
@@ -96,9 +114,11 @@ public class CameraManager : MonoBehaviour {
 
         DefaultPosition();
 
-        //Camera.main.transform.position = cameraDefault.transform.position;
-       // Camera.main.transform.rotation = cameraDefault.transform.rotation;
-    }
+		offsetCamX = 3.45f;
+		offsetCamY = 1.90f;
+		//Camera.main.transform.position = cameraDefault.transform.position;
+		// Camera.main.transform.rotation = cameraDefault.transform.rotation;
+	}
 
 
     /**
