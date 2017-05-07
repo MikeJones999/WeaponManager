@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraManager : MonoBehaviour {
 
@@ -12,9 +14,12 @@ public class CameraManager : MonoBehaviour {
     public float offset;
 	public float offsetCamX;
 	public float offsetCamY;
+	private List<Camera> ListAllCameras;
+	private float fieldOfViewDefault;
+	public float fieldOfViewWeapon;
 
 
-    void Awake()
+	void Awake()
     {
         if(instance == null)
         {
@@ -25,7 +30,13 @@ public class CameraManager : MonoBehaviour {
         {
             Destroy(this);
         }
-    }
+
+
+		if (ListAllCameras == null)
+		{
+			ListAllCameras = new List<Camera>(Camera.allCameras);
+		}
+	}
 
     /**
      * Moves the camera to the default position when all criteria is met
@@ -35,21 +46,21 @@ public class CameraManager : MonoBehaviour {
         inDefaultPosition = true;
         Camera.main.transform.position = cameraDefault.transform.position;
         Camera.main.transform.rotation = cameraDefault.transform.rotation;
+		Camera.main.fieldOfView = fieldOfViewDefault;
         CurrentWeaponFocus = null;
-		HideUiForDefaultPos();
+		ShowWeaponUI(false);
 
 	}
 
 	//Use this Method to Hide User Interface elements when in default position
 	//**NOT YET IMPLEMENTED***
-	void HideUiForDefaultPos()
+	void ShowWeaponUI(bool status)
 	{
-		foreach (Camera cam in Camera.allCameras)
+		foreach (Camera cam in ListAllCameras)
 		{
-			if (cam.CompareTag("UiCamera"))
+			if (cam.CompareTag("CameraInWeaponMode"))
 			{
-				//stop the UiCamera so dont need the for loop again
-				//need to get canvas then hide the buttons we dont need
+				cam.gameObject.SetActive(status);				
 			}
 		}
 	}
@@ -65,17 +76,19 @@ public class CameraManager : MonoBehaviour {
         {
             if (CurrentWeaponFocus != weapon)
             {
-                //CurrentWeaponFocus = weapon;
+				//CurrentWeaponFocus = weapon;
 
-                //var pos = weapon.transform.position;
+				//var pos = weapon.transform.position;
 
-                //var offset = new Vector3(pos.x - 5.5f, pos.y + 1.5f, pos.z - 3);
+				//var offset = new Vector3(pos.x - 5.5f, pos.y + 1.5f, pos.z - 3);
 
-                //Camera.main.transform.position = offset;
-                //Camera.main.transform.LookAt(pos);
-                CurrentWeaponFocus = weapon;
+				//Camera.main.transform.position = offset;
+				//Camera.main.transform.LookAt(pos);
+				ShowWeaponUI(true);
+				CurrentWeaponFocus = weapon;
                 var pos = weapon.transform.position;
                 MoveCameraToAWeaponPos(pos);
+				Camera.main.fieldOfView = fieldOfViewWeapon;
             }
             else
             {
@@ -86,14 +99,17 @@ public class CameraManager : MonoBehaviour {
     }
 
     /**
-     * This Method refocuses the camera following a projectile being shot - focuses back onto the weapon taht fired it
+     * This Method refocuses the camera following a projectile being shot - focuses back onto the weapon that fired it
      * */
     public void ReFocusMe(GameObject weapon)
     {
         CurrentWeaponFocus = weapon;        
         var pos = weapon.transform.position;
         MoveCameraToAWeaponPos(pos);
-    }
+		//show UI for weapon movement
+		ShowWeaponUI(true);
+
+	}
 
     /**
      * Helper method to reduced duplication - simply moves camera to vector3 provided with offset
@@ -112,12 +128,16 @@ public class CameraManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        DefaultPosition();
+		SetUpDefaultFieldOfView();
+		DefaultPosition();
 
 		offsetCamX = 3.45f;
 		offsetCamY = 1.90f;
 		//Camera.main.transform.position = cameraDefault.transform.position;
 		// Camera.main.transform.rotation = cameraDefault.transform.rotation;
+
+		//Get a list of all cameras now - as all camera will only return enabled camera
+	
 	}
 
 
@@ -153,7 +173,8 @@ public class CameraManager : MonoBehaviour {
      * */
     public void FollowFiredProjectile(GameObject Ammo)
     {
-        projectile = Ammo;
+		ShowWeaponUI(false);
+		projectile = Ammo;
         followingProjectile = true;
     }
 
@@ -169,8 +190,8 @@ public class CameraManager : MonoBehaviour {
     public void Update()
     {
         if (followingProjectile && !WeaponAnimInProgress)
-        {
-            if (projectile != null)
+        {			
+			if (projectile != null)
             {
                 Vector3 projectilePos = projectile.transform.position;
                 Camera.main.transform.position = new Vector3(projectilePos.x - offset, projectilePos.y + 2, projectilePos.z);
@@ -197,5 +218,12 @@ public class CameraManager : MonoBehaviour {
         }
         return null;
     }
+
+	private void SetUpDefaultFieldOfView()
+	{
+		fieldOfViewWeapon = 75.0f;
+		fieldOfViewDefault = Camera.main.fieldOfView;
+	}
+
 
 }

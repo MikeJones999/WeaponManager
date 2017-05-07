@@ -130,7 +130,7 @@ namespace Assets.Scripts.Weapons
             //Used to set the ball forward on first click
             if (rotateY == 0.0f)
             {
-                rotateY = -90;
+                rotateY = 90;
             }
             rotateY = Mathf.Clamp(rotateY, 45.0f, 130.0f);
             transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, -rotateY, transform.localEulerAngles.z);
