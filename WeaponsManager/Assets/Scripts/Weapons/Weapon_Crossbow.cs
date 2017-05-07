@@ -44,7 +44,7 @@ public class Weapon_Crossbow : Weapon
 
 		//addforce (fire) using ammo's force parameter
 		 AmmoProjectile.GetComponent<Rigidbody>().AddForce(-AmmoProjectile.transform.forward * ProjectileForceApplied, ForceMode.Acceleration);
-		AmmoProjectile.transform.Rotate(25, 0, 0);
+		//AmmoProjectile.transform.Rotate(25, 0, 0);
 	  //AmmoProjectile.GetComponent<Rigidbody>().AddForce(new Vector3(1, 0, 0) * ProjectileForceApplied, ForceMode.Force);
 
 	   
@@ -73,12 +73,13 @@ public class Weapon_Crossbow : Weapon
 				if (AmmoLoadPos != null)
 				{
 					//There is a a position attached to the weapon that an object can be created at - therefore create a copy of the ammo prefab (attached to this script) and place it at AmmoLoadPos
-					AmmoProjectile = Instantiate(Ammo, new Vector3(AmmoLoadPos.transform.position.x + 0.75f, AmmoLoadPos.transform.position.y, AmmoLoadPos.transform.position.z), AmmoLoadPos.transform.rotation) as GameObject;
+					AmmoProjectile = Instantiate(Ammo, new Vector3(AmmoLoadPos.transform.position.x, AmmoLoadPos.transform.position.y, AmmoLoadPos.transform.position.z), AmmoLoadPos.transform.rotation) as GameObject;
 
-				   
-			 
+					//AmmoProjectile.transform.position += -AmmoProjectile.transform.forward * 0.15f;
+					//AmmoProjectile.transform.position = new Vector3(AmmoProjectile.transform.localPosition.x + 0.75f, AmmoProjectile.transform.position.y, AmmoProjectile.transform.position.z);
 
-				  AmmoProjectile.transform.Rotate(0, -90, 0);
+
+					AmmoProjectile.transform.Rotate(0, -90, 0);
 
 					//Now that the object is created - get the script attached to it called projectile - and then get the force of this particular projectile type. - Projectile is an abstract class. This saves us having to hard code the value each time for different projectiles
 					this.ProjectileForceApplied = AmmoProjectile.GetComponent<Projectile>().GetProjectileForce();
@@ -87,7 +88,7 @@ public class Weapon_Crossbow : Weapon
 					if (AmmoProjectile != null)
 					{
 						AmmoProjectile.transform.parent = AmmoLoadPos.transform;
-						//Wepaon is now loaded so stop it being loaded at the moment
+						//Weapon is now loaded so stop it being loaded at the moment
 						this.weaponLoaded = true;
 						this.projectileExists = true;
 					}
@@ -136,8 +137,8 @@ public class Weapon_Crossbow : Weapon
 		transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, -rotateY, -rotateX);
 		if (weaponLoaded)
 		{
-			AmmoProjectile.transform.rotation = transform.rotation;
-		   // AmmoProjectile.transform.Rotate(0, -90, 0);
+			AmmoProjectile.transform.rotation = AmmoLoadPos.transform.rotation;
+		    AmmoProjectile.transform.Rotate(0, -90, 0);
 		}
 	}
 
