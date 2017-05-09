@@ -73,6 +73,22 @@ public class CameraManager : MonoBehaviour {
 
 	}
 
+	private void ReturnToDefaultPosition()
+	{
+		inDefaultPosition = true;
+		_endPosition = cameraDefault.transform.position;
+		var pos = CurrentWeaponFocus.transform.position;
+		var CamOffset = new Vector3(pos.x - offsetCamX, pos.y + offsetCamY, pos.z);
+		
+		_startPosition = CamOffset;
+		//Camera.main.transform.rotation = cameraDefault.transform.rotation;
+		Camera.main.fieldOfView = fieldOfViewDefault;
+		CurrentWeaponFocus = null;
+		ShowWeaponUI(false);
+		StartLerping();
+
+	}
+
 	//Use this Method to Hide User Interface elements when in default position
 	//**NOT YET IMPLEMENTED***
 	void ShowWeaponUI(bool status)
@@ -182,8 +198,10 @@ public class CameraManager : MonoBehaviour {
         {
             if (!followingProjectile && !WeaponAnimInProgress)
             {
-                DefaultPosition();
-            }
+				//DefaultPosition();
+				ReturnToDefaultPosition();
+
+			}
             else
             {
                 Debug.Log("Cannot change to default view - as following Projectile");
@@ -272,13 +290,24 @@ public class CameraManager : MonoBehaviour {
 			//to start another lerp)
 			Camera.main.transform.position = Vector3.Lerp(_startPosition, _endPosition, percentageComplete);
 			//Constantly update looking at the weapon for smooth rotation
-			Camera.main.transform.LookAt(CurrentWeaponFocus.transform);
+			if (!inDefaultPosition)
+			{
+				Camera.main.transform.LookAt(CurrentWeaponFocus.transform);
+			}
+			else
+			{
+				Camera.main.transform.LookAt(Vector3.zero);
+			}
+			
 
 			//When we've completed the lerp, we set _isLerping to false
 			if (percentageComplete >= 1.0f)
-			{
+			{			
 				_isLerping = false;
-				Camera.main.transform.LookAt(CurrentWeaponFocus.transform);
+				//if (inDefaultPosition)
+				//{
+
+				//}		
 			}
 		}
 	}
