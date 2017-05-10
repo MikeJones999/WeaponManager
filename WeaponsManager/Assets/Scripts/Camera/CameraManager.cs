@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ public class CameraManager : MonoBehaviour {
     private bool followingProjectile;
     private bool WeaponAnimInProgress;
     private GameObject projectile;
-    public float offset;
+	public float offset;
 	public float offsetCamX;
 	public float offsetCamY;
 	private List<Camera> ListAllCameras;
@@ -75,6 +76,7 @@ public class CameraManager : MonoBehaviour {
 
 	private void ReturnToDefaultPosition()
 	{
+		//we should now be in default position
 		inDefaultPosition = true;
 		_endPosition = cameraDefault.transform.position;
 		var pos = CurrentWeaponFocus.transform.position;
@@ -112,15 +114,7 @@ public class CameraManager : MonoBehaviour {
         if (!followingProjectile && !WeaponAnimInProgress)
         {
             if (CurrentWeaponFocus != weapon)
-            {
-				//CurrentWeaponFocus = weapon;
-
-				//var pos = weapon.transform.position;
-
-				//var offset = new Vector3(pos.x - 5.5f, pos.y + 1.5f, pos.z - 3);
-
-				//Camera.main.transform.position = offset;
-				//Camera.main.transform.LookAt(pos);
+            {				
 				ShowWeaponUI(true);
 				CurrentWeaponFocus = weapon;
                 var pos = weapon.transform.position;
@@ -156,7 +150,8 @@ public class CameraManager : MonoBehaviour {
 		//pos = weapons position to move to
         inDefaultPosition = false;
 
-		_startPosition = cameraDefault.transform.position;
+		//changed this line from cameradefault - to the camera itself so that this method can be used when moving from projectile to weapon
+		_startPosition = Camera.main.transform.position;
 
 		var CamOffset = new Vector3(pos.x - offsetCamX, pos.y + offsetCamY, pos.z);
 
@@ -164,7 +159,7 @@ public class CameraManager : MonoBehaviour {
 
 
 		//Camera.main.transform.position = CamOffset;
-        Camera.main.transform.LookAt(pos);
+        //Camera.main.transform.LookAt(pos);
 
 		StartLerping();
 
@@ -230,12 +225,17 @@ public class CameraManager : MonoBehaviour {
      *Stops the camera from following the most recently shot projectile 
      */
     public void StopFollowingFiredProjectile()
-    {
-        followingProjectile = false;
-        ReFocusMe(CurrentWeaponFocus);
+    {		
+		//make the projectile null as it should now be deleted by the weapons manager and will no longer exist.
+		projectile = null;
+		followingProjectile = false;
+		//Make a call to move camera back to weapon focus
+		MoveCameraToAWeaponPos(CurrentWeaponFocus.transform.position);
     }
 
-    public void Update()
+	
+
+	public void Update()
     {
         if (followingProjectile && !WeaponAnimInProgress)
         {			
@@ -295,19 +295,15 @@ public class CameraManager : MonoBehaviour {
 				Camera.main.transform.LookAt(CurrentWeaponFocus.transform);
 			}
 			else
-			{
-				Camera.main.transform.LookAt(Vector3.zero);
+			{				
+					Camera.main.transform.LookAt(Vector3.zero);					
 			}
 			
 
 			//When we've completed the lerp, we set _isLerping to false
 			if (percentageComplete >= 1.0f)
 			{			
-				_isLerping = false;
-				//if (inDefaultPosition)
-				//{
-
-				//}		
+				_isLerping = false;	
 			}
 		}
 	}
