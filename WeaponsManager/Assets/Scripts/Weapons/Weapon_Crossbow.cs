@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class Weapon_Crossbow : Weapon
 {
+
+	public void Awake()
+	{
+		//specify the movement of this weapon
+		LeftAndRight = true;
+		FowardAndBackward = true;
+	}
+
 	public override void Fire()
 	{
 		if (weaponLoaded)

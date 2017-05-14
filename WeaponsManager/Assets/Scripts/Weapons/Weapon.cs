@@ -31,7 +31,13 @@ public abstract class Weapon : MonoBehaviour {
     public GameObject Ammo;
     public GameObject AmmoLoadPos;
 
-    protected float rotateX;
+
+	//Ui Visible in weapon mode - For Movement
+	public bool LeftAndRight { get; set; }
+	public bool FowardAndBackward {get; set;}
+
+
+	protected float rotateX;
     protected float rotateY;
     public float sensitivity;
 

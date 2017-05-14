@@ -8,13 +8,16 @@ namespace Assets.Scripts.Weapons
     [System.Runtime.InteropServices.Guid("04047D65-BE9A-4DA7-A225-F810853AC70E")]
     public class Weapon_Catapult : Weapon
     {
-        //public GameObject WeaponModel;
-        //public GameObject Ammo;
-        //public GameObject AmmoLoadPos;
-        
+		public void Awake()
+		{
+			//specify the movement of this weapon
+			LeftAndRight = false;
+			FowardAndBackward = true;
+		}
+	
 
-        
-        public override void FireProjectile()
+
+		public override void FireProjectile()
         {
 
             //disconnect ammo from parent - however keep the object in memory to align the ball when  firing
