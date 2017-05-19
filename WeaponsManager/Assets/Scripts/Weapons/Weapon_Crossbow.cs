@@ -161,12 +161,12 @@ public class Weapon_Crossbow : Weapon
 			return "WeaponModel: Crossbow";
 		}
 
-	void Update()
-	{
-		if (isMouseDown)
-		{
-			SpecificWeaponMovement();
-		}
-	}
+	//void Update()
+	//{
+	//	if (isMouseDown)
+	//	{
+	//		SpecificWeaponMovement();
+	//	}
+	//}
 
 }

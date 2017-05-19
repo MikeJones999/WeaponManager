@@ -92,7 +92,27 @@ namespace Assets.Scripts.Weapons
             currentWeapon.NoLongerFiringInProgress();
         }
 
+		//need to utilise smooth movement of the weapon via the weapon obj fixed update and possible lerping
+		public void MoveWeaponForward()
+		{
+			currentWeapon.MoveWeaponForwardBackward("Forward");
+		}
+
+		public void MoveWeaponBackward()
+		{
+
+		}
+
+		public void MoveWeaponLeft()
+		{
+
+		}
+
+		public void MoveWeaponRight()
+		{
+
+		}
 
 
-    }
+	}
 }

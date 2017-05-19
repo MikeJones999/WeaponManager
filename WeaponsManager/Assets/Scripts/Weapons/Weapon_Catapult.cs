@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Weapons
 {
-    [System.Runtime.InteropServices.Guid("04047D65-BE9A-4DA7-A225-F810853AC70E")]
+    //[System.Runtime.InteropServices.Guid("04047D65-BE9A-4DA7-A225-F810853AC70E")]
     public class Weapon_Catapult : Weapon
     {
 		public void Awake()
@@ -24,7 +24,7 @@ namespace Assets.Scripts.Weapons
             var parentObj = AmmoProjectile.transform.parent;
             //as we are going to rotate the parent obj - will need to rotate it back - thus get its default rotation for later
             var temp = AmmoProjectile.transform.parent.rotation;
-            //disconnect from paent
+            //disconnect from parent
             AmmoProjectile.transform.parent = null;
 
             //enable the collider on the ammo so it can connect with other objects
@@ -143,12 +143,12 @@ namespace Assets.Scripts.Weapons
             }
         }
 
-        void Update()
-        {
-            if (isMouseDown)
-            {
-                SpecificWeaponMovement();
-            }
-        }
+        //void Update()
+        //{
+        //    if (isMouseDown)
+        //    {
+        //        SpecificWeaponMovement();
+        //    }
+        //}
     }
 }

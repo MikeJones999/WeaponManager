@@ -30,11 +30,23 @@ public abstract class Weapon : MonoBehaviour {
     public GameObject WeaponModel;
     public GameObject Ammo;
     public GameObject AmmoLoadPos;
+	private bool WeaponIsMoving;
+
+	enum MoveDirection
+	{
+		forward,
+		backward,
+		left,
+		right			 
+	}
+
+	private MoveDirection dir;
 
 
 	//Ui Visible in weapon mode - For Movement
 	public bool LeftAndRight { get; set; }
 	public bool FowardAndBackward {get; set;}
+	public Vector3 WeaponStartingPosition;
 
 
 	protected float rotateX;
@@ -49,8 +61,8 @@ public abstract class Weapon : MonoBehaviour {
         weaponLoaded = false;
         projectileExists = false;
         isMouseDown = false;
-
-    }
+		//WeaponStartingPosition = transform.position;
+	}
 
 
     public virtual void Fire()
@@ -178,6 +190,81 @@ public abstract class Weapon : MonoBehaviour {
 
 
     public abstract void SpecificWeaponMovement();
+
+
+	public void MoveWeaponForwardBackward(string direction)
+	{
+		WeaponStartingPosition = transform.position;
+		WeaponIsMoving = true;
+		if(direction.Equals("Forward"))
+		{
+			dir = MoveDirection.forward;
+		}
+		else
+		{
+			dir = MoveDirection.backward;
+		}
+		//get weapons current distance from starting point (anchored)
+		/*
+		 * Need to work out how to ascertain if object in in front or behind
+		if (Vector3.Distance(WeaponStartingPosition, weapon.transform.position) < 10.0f)
+			{
+				
+			}
+
+		//Can however - use the above method to work out if the object is near the edge of the map - thus restricting it
+			*/
+
+
+		//if not greater than 10 metres from starting point
+		//and if not colliding with anything 
+		//move forward/backwards depending on the string
+
+		//movement to be handled in FixedUpdate
+	}
+
+	public void Update()
+	{
+
+		if (isMouseDown)
+		{
+			SpecificWeaponMovement();
+		}
+
+
+		if (WeaponIsMoving && !isMouseDown)
+		{
+			if (Vector3.Distance(WeaponStartingPosition, weapon.transform.position) < 3.0f)
+			{
+				//check for collisions - if collide stop instantly
+				CameraManager.instance.SetFollowingWeaponDuringMove(true);
+				Debug.Log("Weapon is moving");
+				if (dir == MoveDirection.forward)
+				{
+					weapon.transform.position = new Vector3(weapon.transform.position.x + 0.05f, weapon.transform.position.y, weapon.transform.position.z);
+				}
+				else if (dir == MoveDirection.backward)
+				{
+
+				}
+				else if (dir == MoveDirection.left)
+				{
+
+				}
+				else
+				{
+
+				}
+			}
+			else
+			{
+				WeaponIsMoving = false;
+				Debug.Log("Weapon has stopped moving");
+				CameraManager.instance.SetFollowingWeaponDuringMove(false);
+			}
+			
+		}
+	}
 
 
 }

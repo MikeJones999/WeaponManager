@@ -19,6 +19,8 @@ public class CameraManager : MonoBehaviour {
 	private float fieldOfViewDefault;
 	public float fieldOfViewWeapon;
 
+	private bool followingWeaponDuringMove;
+
 	#region "Lerping Movement"
 	// The time taken to move from the start to finish positions
 	public float timeTakenDuringLerp = 1f;
@@ -270,6 +272,16 @@ public class CameraManager : MonoBehaviour {
 				Camera.main.transform.position = new Vector3(projectilePos.x - offset, projectilePos.y + 2, projectilePos.z);
 			}
 		}
+
+		if(!followingProjectile && !WeaponAnimInProgress && followingWeaponDuringMove)
+		{
+			if (CurrentWeaponFocus != null)
+			{
+				Vector3 CurrentWeaponPos = CurrentWeaponFocus.transform.position;
+				Camera.main.transform.position = new Vector3(CurrentWeaponPos.x - offsetCamX, CurrentWeaponPos.y + offsetCamY, CurrentWeaponPos.z);
+			}
+		}
+
 	}
 
 	/**
@@ -281,6 +293,12 @@ public class CameraManager : MonoBehaviour {
 	public void SetWeaponAnimInProgress(bool status)
 	{
 		this.WeaponAnimInProgress = status;
+	}
+
+
+	public void SetFollowingWeaponDuringMove(bool status)
+	{
+		this.followingWeaponDuringMove = status;
 	}
 
 	public GameObject GetCurrentWeaponFocus()
