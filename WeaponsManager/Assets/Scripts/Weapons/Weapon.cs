@@ -31,6 +31,7 @@ public abstract class Weapon : MonoBehaviour {
     public GameObject Ammo;
     public GameObject AmmoLoadPos;
 	private bool WeaponIsMoving;
+	private bool collidedWithObject;
 
 	enum MoveDirection
 	{
@@ -234,35 +235,65 @@ public abstract class Weapon : MonoBehaviour {
 
 		if (WeaponIsMoving && !isMouseDown)
 		{
-			if (Vector3.Distance(WeaponStartingPosition, weapon.transform.position) < 3.0f)
+			if (!collidedWithObject)
 			{
-				//check for collisions - if collide stop instantly
-				CameraManager.instance.SetFollowingWeaponDuringMove(true);
-				Debug.Log("Weapon is moving");
-				if (dir == MoveDirection.forward)
+				if (Vector3.Distance(WeaponStartingPosition, weapon.transform.position) < 3.0f)
 				{
-					weapon.transform.position = new Vector3(weapon.transform.position.x + 0.05f, weapon.transform.position.y, weapon.transform.position.z);
-				}
-				else if (dir == MoveDirection.backward)
-				{
-					weapon.transform.position = new Vector3(weapon.transform.position.x - 0.05f, weapon.transform.position.y, weapon.transform.position.z);
-				}
-				else if (dir == MoveDirection.left)
-				{
+					//check for collisions - if collide stop instantly
+					CameraManager.instance.SetFollowingWeaponDuringMove(true);
+					Debug.Log("Weapon is moving");
+					if (dir == MoveDirection.forward)
+					{
+						weapon.transform.position = new Vector3(weapon.transform.position.x + 0.05f, weapon.transform.position.y, weapon.transform.position.z);
+					}
+					else if (dir == MoveDirection.backward)
+					{
+						weapon.transform.position = new Vector3(weapon.transform.position.x - 0.05f, weapon.transform.position.y, weapon.transform.position.z);
+					}
+					else if (dir == MoveDirection.left)
+					{
 
+					}
+					else
+					{
+
+					}
 				}
 				else
 				{
-
+					WeaponIsMoving = false;
+					Debug.Log("Weapon has stopped moving");
+					CameraManager.instance.SetFollowingWeaponDuringMove(false);
 				}
 			}
 			else
 			{
+				//This section handles when a weapon hits a weapon (or later something else in its moving stage)
+				//If it hits something then stop the movement process and move it backwards slightly
 				WeaponIsMoving = false;
 				Debug.Log("Weapon has stopped moving");
+				if (dir == MoveDirection.forward)
+				{
+					weapon.transform.position = new Vector3(weapon.transform.position.x - 0.05f, weapon.transform.position.y, weapon.transform.position.z);
+				}
+				else if (dir == MoveDirection.backward)
+				{
+					weapon.transform.position = new Vector3(weapon.transform.position.x + 0.05f, weapon.transform.position.y,
+						weapon.transform.position.z);
+				}
+				
 				CameraManager.instance.SetFollowingWeaponDuringMove(false);
+				collidedWithObject = false;
 			}
 			
+		}
+	}
+
+	public void OnCollisionEnter(Collision collision)
+	{
+		if(collision.gameObject.CompareTag("Weapon"))
+		{
+			collidedWithObject = true;
 		}
 	}
 
