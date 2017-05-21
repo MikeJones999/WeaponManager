@@ -245,7 +245,7 @@ public abstract class Weapon : MonoBehaviour {
 				}
 				else if (dir == MoveDirection.backward)
 				{
-
+					weapon.transform.position = new Vector3(weapon.transform.position.x - 0.05f, weapon.transform.position.y, weapon.transform.position.z);
 				}
 				else if (dir == MoveDirection.left)
 				{

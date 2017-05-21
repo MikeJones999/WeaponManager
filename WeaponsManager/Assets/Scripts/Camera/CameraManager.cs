@@ -176,7 +176,7 @@ public class CameraManager : MonoBehaviour {
 	{ 
 		//pos = weapons position to move to
 		inDefaultPosition = false;
-
+		ShowWeaponUI(true);
 		//changed this line from cameradefault - to the camera itself so that this method can be used when moving from projectile to weapon
 		_startPosition = Camera.main.transform.position;
 

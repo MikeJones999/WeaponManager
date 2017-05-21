@@ -100,7 +100,7 @@ namespace Assets.Scripts.Weapons
 
 		public void MoveWeaponBackward()
 		{
-
+			currentWeapon.MoveWeaponForwardBackward("Backward");
 		}
 
 		public void MoveWeaponLeft()
