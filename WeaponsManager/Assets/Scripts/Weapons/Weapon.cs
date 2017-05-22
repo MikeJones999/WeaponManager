@@ -68,7 +68,7 @@ public abstract class Weapon : MonoBehaviour {
 
     public virtual void Fire()
     {
-        if (weaponLoaded)
+        if (weaponLoaded && !WeaponIsMoving)
         {
             if (!firingInProgress)
             {
@@ -233,7 +233,7 @@ public abstract class Weapon : MonoBehaviour {
 		}
 
 
-		if (WeaponIsMoving && !isMouseDown)
+		if (WeaponIsMoving && !isMouseDown && !firingInProgress)
 		{
 			if (!collidedWithObject)
 			{
