@@ -15,9 +15,12 @@ public class CameraManager : MonoBehaviour {
 	public float offset;
 	public float offsetCamX;
 	public float offsetCamY;
+	public float StrafingOffsetCamX;
 	private List<Camera> ListAllCameras;
 	private float fieldOfViewDefault;
 	public float fieldOfViewWeapon;
+	public bool CameraStrafing;
+	protected bool DefaultCamHasStraffed;
 
 	private bool followingWeaponDuringMove;
 
@@ -213,11 +216,12 @@ public class CameraManager : MonoBehaviour {
 
 		offsetCamX = 3.45f;
 		offsetCamY = 1.90f;
+		StrafingOffsetCamX = 4.00f;
 		//Camera.main.transform.position = cameraDefault.transform.position;
 		// Camera.main.transform.rotation = cameraDefault.transform.rotation;
 
 		//Get a list of all cameras now - as all camera will only return enabled camera
-	
+
 	}
 
 
@@ -243,7 +247,14 @@ public class CameraManager : MonoBehaviour {
 		}
 		else
 		{
-			Debug.Log("Already in default view");
+			if (Camera.main.transform.position != cameraDefault.transform.position)
+			{
+				StrafeCamera("DefaultPos");
+			}
+			else
+			{
+				Debug.Log("Already in default view");
+			}
 		}
 	}
 
@@ -328,6 +339,49 @@ public class CameraManager : MonoBehaviour {
 		fieldOfViewDefault = Camera.main.fieldOfView;
 	}
 
+	//Handles the UI Left button being pressed
+	public void UILeftMovement()
+	{
+		StrafeCamera("Left");
+	}
+
+	//Handles the UI Right button being pressed
+	public void UIRightMovement()
+	{
+		StrafeCamera("Right");
+	}
+
+	//Method to handle the strafing of the Main Camera left and right - moves in segments of stipulated offset x
+	//Once end position is set - the StartLerping method is called.  
+	public void StrafeCamera(string direction)
+	{
+		if (inDefaultPosition)
+		{
+			_startPosition = Camera.main.transform.position;
+			Vector3 CamOffset = _startPosition;
+			if (direction.Equals("Left"))
+			{
+				CamOffset = new Vector3(_startPosition.x - StrafingOffsetCamX, _startPosition.y, _startPosition.z);
+			}
+			else if (direction.Equals("Right"))
+			{
+				CamOffset = new Vector3(_startPosition.x + StrafingOffsetCamX, _startPosition.y, _startPosition.z);
+			}
+			else if(direction.Equals("DefaultPos"))
+			{
+				CamOffset = cameraDefault.transform.position;
+			}
+
+
+			_endPosition = CamOffset;
+
+			//Camera.main.transform.position = CamOffset;
+			//Camera.main.transform.LookAt(pos);
+			CameraStrafing = true;
+			StartLerping();
+		}
+	}
+
 	//We do the actual interpolation in FixedUpdate(), since we're dealing with a rigidbody
 	void FixedUpdate()
 	{
@@ -346,19 +400,29 @@ public class CameraManager : MonoBehaviour {
 			Camera.main.transform.position = Vector3.Lerp(_startPosition, _endPosition, percentageComplete);
 			//Constantly update looking at the weapon for smooth rotation
 			if (!inDefaultPosition)
-			{			
-					Camera.main.transform.LookAt(CurrentWeaponFocus.transform);				
+			{
+				Camera.main.transform.LookAt(CurrentWeaponFocus.transform);
+			}
+			else if (inDefaultPosition && CameraStrafing)
+			{
+				//stay looking forward
 			}
 			else
-			{				
-					Camera.main.transform.LookAt(Vector3.zero);					
+			{
+				Camera.main.transform.LookAt(Vector3.zero);
 			}
 			
 
 			//When we've completed the lerp, we set _isLerping to false
 			if (percentageComplete >= 1.0f)
 			{			
-				_isLerping = false;	
+				_isLerping = false;
+
+				//End the movement of the camera from strafing
+				if (inDefaultPosition && CameraStrafing)
+				{
+					CameraStrafing = false;
+				}
 			}
 		}
 	}
