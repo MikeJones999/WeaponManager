@@ -101,9 +101,20 @@ public class CameraManager : MonoBehaviour {
 		{
 			foreach (Camera cam in ListAllCameras)
 			{
-				if (cam.CompareTag("CameraInWeaponMode"))
+				if (cam.CompareTag("CameraInWeaponMode") )
 				{
 					cam.gameObject.SetActive(status);
+				}
+
+				if (cam.CompareTag("CameraMovementDir"))
+				{
+					if (inDefaultPosition)
+					{
+						cam.gameObject.SetActive(true);
+					}else
+					{
+						cam.gameObject.SetActive(false);
+					}
 				}
 			}
 		}
@@ -117,16 +128,17 @@ public class CameraManager : MonoBehaviour {
 			{
 				if (cam.CompareTag("CameraInWeaponMode"))
 				{
-					if(LeftAndRight && cam.name.Equals("UiCameraLR"))
-					{
-						cam.gameObject.SetActive(status);
-					}
-
-					if(FowardAndBackward && cam.name.Equals("UiCameraFB"))
+					if (FowardAndBackward && cam.name.Equals("UiCameraFB"))
 					{
 						cam.gameObject.SetActive(status);
 					}
 				}
+
+				if (cam.CompareTag("CameraMovementDir"))
+				{
+					cam.gameObject.SetActive(false);
+				}
+			
 			}
 		}
 	}
