@@ -70,6 +70,22 @@ namespace Assets.Scripts.Weapons
 
         }
 
+		public void SwitchAmmo()
+		{
+			if (!CameraManager.instance.inDefaultPosition)
+			{
+				if (currentWeapon != null)
+				{
+					currentWeapon.SwitchAmmo();
+				}
+			}
+			else
+			{
+				Debug.Log("No Weapon has been selected - you are in default view");
+			}
+		}
+
+
         /**
          * Informs the current weapon that the one of its projectiles needs to be destroyed
          * 

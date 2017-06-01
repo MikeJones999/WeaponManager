@@ -10,6 +10,7 @@ public class Weapon_Crossbow : Weapon
 		//specify the movement of this weapon
 		LeftAndRight = true;
 		FowardAndBackward = true;
+		SwitchAmmo();
 	}
 
 	public override void Fire()
@@ -71,7 +72,7 @@ public class Weapon_Crossbow : Weapon
 	public override void LoadProjectile()
 	{
 		//test purposes
-		SwitchAmmo(Ammo, 5);
+		//SwitchAmmo(Ammo, 5);
 
 		//if weapon currently doesn't have any projectiles attached then continue to load one
 		if ((!weaponLoaded) && (!projectileExists))
@@ -150,10 +151,22 @@ public class Weapon_Crossbow : Weapon
 		}
 	}
 
-	public override void SwitchAmmo(GameObject ammo, int ammoCount)
+	public override void SwitchAmmo()
 	{
-		this.Ammo = ammo;
-		this.AmmoCount = ammoCount;
+		//handle initial run and set default ammo
+		if (this.Ammo == null)
+		{
+			this.Ammo = Resources.Load("prefabs/projectiles/BallistSPEARModel_v1") as GameObject;
+			this.AmmoCount = 5;
+		}
+		else
+		{
+
+			this.Ammo = Resources.Load("prefabs/projectiles/BallistSPEARModel_v1") as GameObject;
+			this.AmmoCount = 5;
+		}
+
+
 	}
 
 	public override string ToString()

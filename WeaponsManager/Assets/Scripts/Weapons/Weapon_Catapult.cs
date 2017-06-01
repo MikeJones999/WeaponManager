@@ -13,6 +13,7 @@ namespace Assets.Scripts.Weapons
 			//specify the movement of this weapon
 			LeftAndRight = false;
 			FowardAndBackward = true;
+			SwitchAmmo();
 		}
 	
 
@@ -63,7 +64,7 @@ namespace Assets.Scripts.Weapons
         {            
 
             //test purposes
-            SwitchAmmo(Ammo, 5);
+           // SwitchAmmo(Ammo, 5);
 
             //if weapon currently doesn't have any projectiles attached then continue to load one
             if ((!weaponLoaded) && (!projectileExists))
@@ -111,10 +112,31 @@ namespace Assets.Scripts.Weapons
 
         
 
-        public override void SwitchAmmo(GameObject ammo, int ammoCount)
+        public override void SwitchAmmo()
         {
-            this.Ammo = ammo;
-            this.AmmoCount = ammoCount;
+			if (!projectileExists)
+			{
+				//handle initial run and set default ammo
+				if (this.Ammo == null)
+				{
+
+					this.Ammo = Resources.Load("prefabs/projectiles/Catapult_Ball") as GameObject;
+					this.AmmoCount = 5;
+				}
+				else
+				{
+					this.Ammo = Resources.Load("prefabs/projectiles/Catapult_Ball") as GameObject;
+					this.AmmoCount = 5;
+				}
+			}
+			else
+			{
+				Debug.Log("Ammo already loaded - ");
+				//change this for - swap out of the ammo at its loaded position
+
+			}
+
+           
         }
 
         public override string ToString()

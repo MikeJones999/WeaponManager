@@ -28,7 +28,7 @@ public abstract class Weapon : MonoBehaviour {
     protected GameObject AmmoProjectile;
     public float projectileDestroyDelay;
     public GameObject WeaponModel;
-    public GameObject Ammo;
+    protected GameObject Ammo;
     public GameObject AmmoLoadPos;
 	private bool WeaponIsMoving;
 	private bool collidedWithObject;
@@ -63,6 +63,7 @@ public abstract class Weapon : MonoBehaviour {
         projectileExists = false;
         isMouseDown = false;
 		//WeaponStartingPosition = transform.position;
+	
 	}
 
 
@@ -112,7 +113,7 @@ public abstract class Weapon : MonoBehaviour {
     }
 
     public abstract void LoadProjectile();
-    public abstract void SwitchAmmo(GameObject ammo, int ammoCount);
+    public abstract void SwitchAmmo();
 
 
     /**
