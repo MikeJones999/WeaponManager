@@ -17,19 +17,19 @@ using UnityEngine.EventSystems;
 public abstract class Weapon : MonoBehaviour {
 
 	private GameObject weapon;
-    protected bool isMouseDown;
-    private int health;
-    protected bool weaponLoaded;
-    protected bool projectileExists;
-    
-    protected static bool firingInProgress;
-    protected int AmmoCount;
-    protected float ProjectileForceApplied;
-    protected GameObject AmmoProjectile;
-    public float projectileDestroyDelay;
-    public GameObject WeaponModel;
-    protected GameObject Ammo;
-    public GameObject AmmoLoadPos;
+	protected bool isMouseDown;
+	private int health;
+	protected bool weaponLoaded;
+	protected bool projectileExists;
+	
+	protected static bool firingInProgress;
+	protected int AmmoCount;
+	protected float ProjectileForceApplied;
+	protected GameObject AmmoProjectile;
+	public float projectileDestroyDelay;
+	public GameObject WeaponModel;
+	protected GameObject Ammo;
+	public GameObject AmmoLoadPos;
 	private bool WeaponIsMoving;
 	private bool collidedWithObject;
 
@@ -51,147 +51,147 @@ public abstract class Weapon : MonoBehaviour {
 
 
 	protected float rotateX;
-    protected float rotateY;
-    public float sensitivity;
+	protected float rotateY;
+	public float sensitivity;
 
-    // Use this for initialization
-    void Start () {
+	// Use this for initialization
+	void Start () {
 
-        //this transform.gameobject relates to the object in which the script is attached
+		//this transform.gameobject relates to the object in which the script is attached
 		weapon = transform.gameObject;
-        weaponLoaded = false;
-        projectileExists = false;
-        isMouseDown = false;
+		weaponLoaded = false;
+		projectileExists = false;
+		isMouseDown = false;
 		//WeaponStartingPosition = transform.position;
 	
 	}
 
 
-    public virtual void Fire()
-    {
-        if (weaponLoaded && !WeaponIsMoving)
-        {
-            if (!firingInProgress)
-            {
-                firingInProgress = true;
-                Debug.Log("Fired : weapon");
-                WeaponModel.GetComponent<Animator>().Play("FireShot");
-                AmmoCount--;
-                //weapon is firing - so cannot choose default view or another weapon
-
-
-                //tell camera manager that Animation has now started - so that Default mode cannot be pressed
-                CameraManagerInformAnimationBeingPlayed(true);
-            }
-            else
-            {
-                Debug.Log("Currently firing in progress - handle with UI notice!!!!");
-            }
-
-        }
-        else
-        {
-            Debug.Log("No ammo loaded - handle with UI notice!!!!");
-        }
-    }
-
-    public abstract void FireProjectile();
-
-
-    public void ReduceHealth(int damage)
-    {
-        health = health - damage;
-        if( health <= 0)
-        {
-            Debug.Log(this.ToString());
-        }
-    }
-
-    public int GetHealth()
-    {
-        return health;
-    }
-
-    public abstract void LoadProjectile();
-    public abstract void SwitchAmmo();
-
-
-    /**
-     * On mouse clicking on weapon object focus on me - camera manager decides if the view is already current
-     * */
-    void OnMouseDown()
+	public virtual void Fire()
 	{
-        //***MW*** 19/04/2017 Handles the button interaction - if not clicking on ui then call underlining code
-        if (!EventSystem.current.IsPointerOverGameObject())
-        {
-            if (!firingInProgress)
-            {
-                if (CameraManager.instance.GetCurrentWeaponFocus() != this.gameObject)
-                {
-                    CameraManager.instance.FocusMe(weapon);
-                    WeaponsManager.instance.SetWeapon(this);
-                }
-                else
-                {
-                    isMouseDown = true;
-                }
-            }
-        }
+		if (weaponLoaded && !WeaponIsMoving)
+		{
+			if (!firingInProgress)
+			{
+				firingInProgress = true;
+				Debug.Log("Fired : weapon");
+				WeaponModel.GetComponent<Animator>().Play("FireShot");
+				AmmoCount--;
+				//weapon is firing - so cannot choose default view or another weapon
+
+
+				//tell camera manager that Animation has now started - so that Default mode cannot be pressed
+				CameraManagerInformAnimationBeingPlayed(true);
+			}
+			else
+			{
+				Debug.Log("Currently firing in progress - handle with UI notice!!!!");
+			}
+
+		}
+		else
+		{
+			Debug.Log("No ammo loaded - handle with UI notice!!!!");
+		}
 	}
 
-    void OnMouseUp()
-    {
-        isMouseDown = false;
-    }
-
-    /**
-     * Destroy the current projectile
-     * */
-    public void DestroyFiredProjectile()
-    {
-        if (AmmoProjectile != null)
-        {            
-            Destroy(AmmoProjectile, projectileDestroyDelay);
-            projectileExists = false;
-        }
-    }
-
-    /**
-     * Destroy the passed projectile 
-     * This overload method ensures that the correct projectile is deleted and not any projectile that would follow
-     * */
-    public void DestroyFiredProjectile(GameObject projectile)
-    {
-        if (projectile != null)        {
-
-            Destroy(projectile, projectileDestroyDelay);
-            projectileExists = false;
-        }
-    }
-
-    /**
-     * Requests that the camera manager should follow the projectile
-     * Camera manager handles this and decides if it can or is there is an animation in progress
-     */
-    protected void CameraFollowProjectile()
-    {
-        CameraManager.instance.FollowFiredProjectile(AmmoProjectile);
-
-    }
-
-    protected void CameraManagerInformAnimationBeingPlayed(bool status)
-    {      
-        CameraManager.instance.SetWeaponAnimInProgress(status);
-    }
+	public abstract void FireProjectile();
 
 
-    public void NoLongerFiringInProgress()
-    {
-        firingInProgress = false;
-    }
+	public void ReduceHealth(int damage)
+	{
+		health = health - damage;
+		if( health <= 0)
+		{
+			Debug.Log(this.ToString());
+		}
+	}
+
+	public int GetHealth()
+	{
+		return health;
+	}
+
+	public abstract void LoadProjectile();
+	public abstract void SwitchAmmo();
 
 
-    public abstract void SpecificWeaponMovement();
+	/**
+	 * On mouse clicking on weapon object focus on me - camera manager decides if the view is already current
+	 * */
+	void OnMouseDown()
+	{
+		//***MW*** 19/04/2017 Handles the button interaction - if not clicking on ui then call underlining code
+		if (!EventSystem.current.IsPointerOverGameObject())
+		{
+			if (!firingInProgress)
+			{
+				if (CameraManager.instance.GetCurrentWeaponFocus() != this.gameObject)
+				{
+					CameraManager.instance.FocusMe(weapon);
+					WeaponsManager.instance.SetWeapon(this);
+				}
+				else
+				{
+					isMouseDown = true;
+				}
+			}
+		}
+	}
+
+	void OnMouseUp()
+	{
+		isMouseDown = false;
+	}
+
+	/**
+	 * Destroy the current projectile
+	 * */
+	public void DestroyFiredProjectile()
+	{
+		if (AmmoProjectile != null)
+		{            
+			Destroy(AmmoProjectile, projectileDestroyDelay);
+			projectileExists = false;
+		}
+	}
+
+	/**
+	 * Destroy the passed projectile 
+	 * This overload method ensures that the correct projectile is deleted and not any projectile that would follow
+	 * */
+	public void DestroyFiredProjectile(GameObject projectile)
+	{
+		if (projectile != null)        {
+
+			Destroy(projectile, projectileDestroyDelay);
+			projectileExists = false;
+		}
+	}
+
+	/**
+	 * Requests that the camera manager should follow the projectile
+	 * Camera manager handles this and decides if it can or is there is an animation in progress
+	 */
+	protected void CameraFollowProjectile()
+	{
+		CameraManager.instance.FollowFiredProjectile(AmmoProjectile);
+
+	}
+
+	protected void CameraManagerInformAnimationBeingPlayed(bool status)
+	{      
+		CameraManager.instance.SetWeaponAnimInProgress(status);
+	}
+
+
+	public void NoLongerFiringInProgress()
+	{
+		firingInProgress = false;
+	}
+
+
+	public abstract void SpecificWeaponMovement();
 
 
 	public void MoveWeaponForwardBackward(string direction)
