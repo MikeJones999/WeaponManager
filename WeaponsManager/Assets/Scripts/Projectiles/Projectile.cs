@@ -13,8 +13,10 @@ namespace Assets.Scripts.Projectiles
 {
     public abstract class  Projectile :MonoBehaviour
     {
-        private int ProjectileForce;
+        protected int ProjectileForce;
         protected bool isDestroyableAfterImpact { get; set; }
+		protected bool isBirdProjectile { get; set; }
+		protected bool inFlight { get; set; }
 
         /**
          * Gets the projectile force that has been applied to this specific Projectile type
@@ -35,7 +37,7 @@ namespace Assets.Scripts.Projectiles
 
         private void OnCollisionEnter(Collision collision)
         {
-            //***MJ*** Changed from  tag = "" as this is apparently heavy on teh garbage collector
+            //***MJ*** Changed from  tag = "" as this is apparently heavy on the garbage collector
             if (!collision.transform.CompareTag("Weapon"))
             {
                 //call the stated function after the given time - the time should be a global variable that we decide upon
@@ -53,5 +55,8 @@ namespace Assets.Scripts.Projectiles
             WeaponsManager.instance.DestroyFiredProjectile(this.gameObject);
         }
 
-    }
+		
+
+
+	}
 }

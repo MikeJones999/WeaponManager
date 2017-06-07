@@ -63,7 +63,7 @@ public abstract class Weapon : MonoBehaviour {
 		projectileExists = false;
 		isMouseDown = false;
 		//WeaponStartingPosition = transform.position;
-	
+		GameManager.instance.AddGameTransform(transform);
 	}
 
 
@@ -251,14 +251,7 @@ public abstract class Weapon : MonoBehaviour {
 					{
 						weapon.transform.position = new Vector3(weapon.transform.position.x - 0.05f, weapon.transform.position.y, weapon.transform.position.z);
 					}
-					else if (dir == MoveDirection.left)
-					{
-
-					}
-					else
-					{
-
-					}
+				
 				}
 				else
 				{
@@ -288,6 +281,7 @@ public abstract class Weapon : MonoBehaviour {
 			}
 			
 		}
+	
 	}
 
 	public void OnCollisionEnter(Collision collision)
