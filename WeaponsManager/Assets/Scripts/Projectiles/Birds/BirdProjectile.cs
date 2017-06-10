@@ -14,13 +14,20 @@ namespace Assets.Scripts.Projectiles
 
 		void Awake()
 		{
-			SetProjectileForce(10);
+			
 			isDestroyableAfterImpact = false;
 			isBirdProjectile = true;
 			inFlight = false;
 			waypoints = GameManager.instance.FlightWayPoints;
 			waypointCount = 1;
+
+			//this ensures
+			if (waypoints.ContainsKey(7))
+			{
+				waypoints.Remove(7);
+			}
 			waypoints.Add(7, GameManager.instance.ReturnGameObject("BirdMan").transform.position);
+			
 		}
 		public abstract void Fly();
 
@@ -41,7 +48,7 @@ namespace Assets.Scripts.Projectiles
 				if(waypointCount > 7)
 				{
 					inFlight = false;
-					Invoke("StopProjectileFromBeingFollowed", 4.0f);
+					Invoke("StopProjectileFromBeingFollowed", 1.5f);
 				}
 			}
 		}

@@ -14,7 +14,7 @@ namespace Assets.Scripts.Weapons
 		{
 			//specify the movement of this weapon
 			LeftAndRight = false;
-			FowardAndBackward = true;
+			FowardAndBackward = false;
 			SwitchAmmo();
 		}
 		public override void Fire()
