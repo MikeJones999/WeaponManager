@@ -1,0 +1,144 @@
+fileFormatVersion: 2
+guid: 4b66d516a71e3784d98493deaa39c9ee
+timeCreated: 1497109990
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: B_WHEELS
+    100002: //RootNode
+    100004: CINEMA_4D_Editor
+    100006: F_WHEELS
+    100008: HULL
+    100010: HULL_2
+    100012: LEVERS
+    100014: LEVERS_2
+    100016: ROPES
+    100018: ROPES_2
+    100020: SWING
+    100022: SWING_2
+    100024: TEX_FIX
+    100026: TEX_FIX_2
+    100028: TRIANGLE
+    100030: TRIANGLE_1
+    400000: B_WHEELS
+    400002: //RootNode
+    400004: CINEMA_4D_Editor
+    400006: F_WHEELS
+    400008: HULL
+    400010: HULL_2
+    400012: LEVERS
+    400014: LEVERS_2
+    400016: ROPES
+    400018: ROPES_2
+    400020: SWING
+    400022: SWING_2
+    400024: TEX_FIX
+    400026: TEX_FIX_2
+    400028: TRIANGLE
+    400030: TRIANGLE_1
+    2300000: B_WHEELS
+    2300002: F_WHEELS
+    2300004: HULL
+    2300006: HULL_2
+    2300008: LEVERS
+    2300010: LEVERS_2
+    2300012: ROPES
+    2300014: ROPES_2
+    2300016: SWING
+    2300018: SWING_2
+    2300020: TEX_FIX
+    2300022: TEX_FIX_2
+    3300000: B_WHEELS
+    3300002: F_WHEELS
+    3300004: HULL
+    3300006: HULL_2
+    3300008: LEVERS
+    3300010: LEVERS_2
+    3300012: ROPES
+    3300014: ROPES_2
+    3300016: SWING
+    3300018: SWING_2
+    3300020: TEX_FIX
+    3300022: TEX_FIX_2
+    4300000: LEVERS
+    4300002: ROPES
+    4300004: SWING
+    4300006: HULL
+    4300008: TEX_FIX
+    4300010: F_WHEELS
+    4300012: B_WHEELS
+    4300014: LEVERS_2
+    4300016: ROPES_2
+    4300018: SWING_2
+    4300020: HULL_2
+    4300022: TEX_FIX_2
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
