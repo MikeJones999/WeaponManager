@@ -21,7 +21,9 @@ public class WayPointCreator : MonoBehaviour
 		WaypointDict = new Dictionary<int, Vector3>();
 		PopulateWayPoints();
 		createVisualWayPoints();
+		//Pass game manager the flight waypoints for the bird to follow
 		GameManager.instance.FlightWayPoints = WaypointDict;
+		//inform camera manager where center point is
 		CameraManager.instance.setCentrePointLoc(centrePos);
 	}
 	
@@ -33,6 +35,8 @@ public class WayPointCreator : MonoBehaviour
 		}
 		return new Dictionary<int, Vector3>();
 	}
+
+	//Create the necessary waypoints around the centre point - this should change to  standard height rather that increment on teh objetc itself
 	void PopulateWayPoints()
 	{
 		WaypointDict.Add(1, new Vector3(centrePos.x - 10, height, centrePos.z - 20));

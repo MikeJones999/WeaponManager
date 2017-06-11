@@ -285,6 +285,7 @@ public class CameraManager : MonoBehaviour {
 		MoveCameraToAWeaponPos(CurrentWeaponFocus.transform.position);
 	}
 
+	//obtain the centre position vector3 - presently from WaypointCreator.cs
 	public void setCentrePointLoc(Vector3 centreLoc)
 	{
 		this.GameCentrePoint = centreLoc;
@@ -296,6 +297,7 @@ public class CameraManager : MonoBehaviour {
 		{			
 			if (projectile != null)
 			{
+				//Following the bird projectile
 				if (projectile.CompareTag("Bird"))
 				{
 					//Debug.Log("Following Projectile of Type BirdProjectile");
