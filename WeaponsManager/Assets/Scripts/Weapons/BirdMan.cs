@@ -145,12 +145,12 @@ namespace Assets.Scripts.Weapons
 				if (this.Ammo == null)
 				{
 
-					this.Ammo = Resources.Load("prefabs/projectiles/Crow") as GameObject;
+					this.Ammo = Resources.Load("prefabs/projectiles/Birds/Crow") as GameObject;
 					this.AmmoCount = 5;
 				}
 				else
 				{
-					this.Ammo = Resources.Load("prefabs/projectiles/Crow") as GameObject;
+					this.Ammo = Resources.Load("prefabs/projectiles/Birds/Crow") as GameObject;
 					this.AmmoCount = 5;
 				}
 			}

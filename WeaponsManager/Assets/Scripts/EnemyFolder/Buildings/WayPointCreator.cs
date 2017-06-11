@@ -22,6 +22,7 @@ public class WayPointCreator : MonoBehaviour
 		PopulateWayPoints();
 		createVisualWayPoints();
 		GameManager.instance.FlightWayPoints = WaypointDict;
+		CameraManager.instance.setCentrePointLoc(centrePos);
 	}
 	
 	public Dictionary<int,Vector3> ReturnWaypointsDictionary()

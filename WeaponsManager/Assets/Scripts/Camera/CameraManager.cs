@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Projectiles;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,7 @@ public class CameraManager : MonoBehaviour {
 	protected bool DefaultCamHasStraffed;
 
 	private bool followingWeaponDuringMove;
+	private Vector3 GameCentrePoint;
 
 	#region "Lerping Movement"
 	// The time taken to move from the start to finish positions
@@ -283,7 +285,10 @@ public class CameraManager : MonoBehaviour {
 		MoveCameraToAWeaponPos(CurrentWeaponFocus.transform.position);
 	}
 
-	
+	public void setCentrePointLoc(Vector3 centreLoc)
+	{
+		this.GameCentrePoint = centreLoc;
+	}
 
 	public void Update()
 	{
@@ -291,9 +296,23 @@ public class CameraManager : MonoBehaviour {
 		{			
 			if (projectile != null)
 			{
-				Vector3 projectilePos = projectile.transform.position;
-				Camera.main.transform.position = new Vector3(projectilePos.x - offset, projectilePos.y + 2, projectilePos.z);
+				if (projectile.CompareTag("Bird"))
+				{
+					//Debug.Log("Following Projectile of Type BirdProjectile");
+					Vector3 projectilePos = projectile.transform.position;
+					//Camera.main.transform.position = new Vector3(projectilePos.x - offset, projectilePos.y + 2, projectilePos.z);
+					Camera.main.transform.position = new Vector3(projectilePos.x + 0.3f, projectilePos.y + 0.45f, projectilePos.z +0.5f);
+
+					Camera.main.transform.LookAt(GameCentrePoint);
+
+				}
+				else  //standard linear camera follow
+				{
+					Vector3 projectilePos = projectile.transform.position;
+					Camera.main.transform.position = new Vector3(projectilePos.x - offset, projectilePos.y + 2, projectilePos.z);
+				}
 			}
+			
 		}
 
 		if(!followingProjectile && !WeaponAnimInProgress && followingWeaponDuringMove)

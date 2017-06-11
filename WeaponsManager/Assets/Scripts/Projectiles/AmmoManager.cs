@@ -13,7 +13,7 @@ public class AmmoManager : MonoBehaviour {
 	{
 		if(instance == null)
 		{
-			instance = new AmmoManager();
+			instance = this;
 		}
 		else
 		{
