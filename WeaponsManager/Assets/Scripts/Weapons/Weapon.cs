@@ -233,7 +233,7 @@ public abstract class Weapon : MonoBehaviour {
 			SpecificWeaponMovement();
 		}
 
-
+		//physical movement of a weapon object
 		if (WeaponIsMoving && !isMouseDown && !firingInProgress)
 		{
 			if (!collidedWithObject)

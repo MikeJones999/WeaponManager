@@ -72,8 +72,10 @@ public class Weapon_Archers : Weapon {
 		//addforce (fire) using projectile's parent forward force parameter
 		AmmoProjectile.GetComponent<Rigidbody>().AddForce(-AmmoProjectile.transform.forward * ProjectileForceApplied, ForceMode.Acceleration);
 
+		
+
 		//now rotate parent object back to as its default
-		//parentObj.rotation = temp;
+		parentObj.rotation = temp;
 		//Weapon shown as not loaded
 		weaponLoaded = false;
 
@@ -104,6 +106,8 @@ public class Weapon_Archers : Weapon {
 						//There is a a position attached to the weapon that an object can be created at - therefore create a copy of the ammo prefab (attached to this script) and place it at AmmoLoadPos
 						AmmoProjectile = Instantiate(Ammo, new Vector3(AmmoLoadPos.transform.position.x, AmmoLoadPos.transform.position.y, AmmoLoadPos.transform.position.z), Quaternion.identity) as GameObject;
 
+					AmmoProjectile.transform.rotation = AmmoLoadPos.transform.rotation;
+					
 					//rotate the arrow - remove it created in correct direction
 					AmmoProjectile.transform.Rotate(0, -90, 0);
 
@@ -196,7 +200,7 @@ public class Weapon_Archers : Weapon {
 		//added rotation up and down for crossbow - limits the collision with the ground - issue with rigid body
 		rotateX = Mathf.Clamp(rotateX, 0.0f, 75.0f);
 		transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rotateY, transform.localEulerAngles.z );
-		AmmoLoadPos.transform.localEulerAngles = new Vector3(AmmoLoadPos.transform.localEulerAngles.x, AmmoLoadPos.transform.localEulerAngles.y , rotateX); // - rotateX);
+		AmmoLoadPos.transform.localEulerAngles = new Vector3(AmmoLoadPos.transform.localEulerAngles.x, AmmoLoadPos.transform.localEulerAngles.y, rotateX); // - rotateX);
 		//transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, -rotateY, -rotateX);
 		//if (weaponLoaded)
 		//{
