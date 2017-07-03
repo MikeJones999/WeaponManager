@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Projectiles;
+using Assets.Scripts.Projectiles.ArcherArrows;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -79,12 +80,56 @@ public class Weapon_Archers : Weapon {
 		//Weapon shown as not loaded
 		weaponLoaded = false;
 
+		Arrow_Projectile arrow = AmmoProjectile.GetComponent<Arrow_Projectile>();
+		arrow.InFlight();
+		arrow.AssignMainArrow();
+
 
 		//camera follow until object destroyed
 		CameraFollowProjectile();
 
 		//tell camera manager that Animation has now stopped - so that it can follow the projectile
 		CameraManagerInformAnimationBeingPlayed(false);
+
+		FireArrowsWithSleepCoroutine(AmmoProjectile);
+	}
+
+
+	void FireArrowsWithSleepCoroutine(GameObject AmmoProjectile)
+	{
+		StartCoroutine((System.Collections.IEnumerator)FireAdditionArrows(AmmoProjectile));
+
+	}
+
+
+
+	IEnumerable FireAdditionArrows(GameObject AmmoProjectile)
+	{
+
+		int totalNumberOfArchers = 5;
+
+		GameObject LastArrowFired = AmmoProjectile;
+
+		for (int i = 1; i < totalNumberOfArchers; i++)
+		{
+
+			int offsetX = Random.Range(1, 5);
+			int offsetZ = Random.Range(1, 5);
+
+			GameObject newArrow = Instantiate(Ammo, new Vector3(AmmoLoadPos.transform.position.x + offsetX, AmmoLoadPos.transform.position.y, AmmoLoadPos.transform.position.z + offsetZ), AmmoProjectile.transform.rotation) as GameObject;
+
+			newArrow.GetComponent<Collider>().enabled = true;
+
+
+			//initialise rigidbody's gravity
+			newArrow.GetComponent<Rigidbody>().useGravity = true;
+
+			newArrow.GetComponent<Rigidbody>().AddForce(-AmmoProjectile.transform.forward * ProjectileForceApplied, ForceMode.Acceleration);
+			Arrow_Projectile arrow = newArrow.GetComponent<Arrow_Projectile>();
+			arrow.InFlight();
+			yield return WaitForSeconds(5);
+		}
+
 	}
 
 

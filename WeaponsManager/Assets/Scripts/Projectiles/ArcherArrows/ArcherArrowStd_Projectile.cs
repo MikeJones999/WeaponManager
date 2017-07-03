@@ -2,7 +2,7 @@
 using Assets.Scripts.Projectiles.ArcherArrows;
 using UnityEngine;
 
-public class ArcherArrowStd_Projectile : ArrowProjectile
+public class ArcherArrowStd_Projectile : Arrow_Projectile
 {
 		void Awake()
 		{
