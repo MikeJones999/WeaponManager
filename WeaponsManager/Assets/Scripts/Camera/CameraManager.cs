@@ -277,12 +277,15 @@ public class CameraManager : MonoBehaviour {
 	 *Stops the camera from following the most recently shot projectile 
 	 */
 	public void StopFollowingFiredProjectile()
-	{		
-		//make the projectile null as it should now be deleted by the weapons manager and will no longer exist.
-		projectile = null;
-		followingProjectile = false;
-		//Make a call to move camera back to weapon focus
-		MoveCameraToAWeaponPos(CurrentWeaponFocus.transform.position);
+	{
+		if (projectile != null)
+		{
+			//make the projectile null as it should now be deleted by the weapons manager and will no longer exist.
+			projectile = null;
+			followingProjectile = false;
+			//Make a call to move camera back to weapon focus
+			MoveCameraToAWeaponPos(CurrentWeaponFocus.transform.position);
+		}
 	}
 
 	//obtain the centre position vector3 - presently from WaypointCreator.cs

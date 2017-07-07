@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Weapons;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,8 @@ namespace Assets.Scripts.Projectiles.ArcherArrows
 
 		private void Start()
 		{
+
+			//these should be pulled from a db
 			ObjectsToStickTo = new List<string>();
 			ObjectsToStickTo.Add("Ground");
 			ObjectsToStickTo.Add("Building");
@@ -40,7 +43,7 @@ namespace Assets.Scripts.Projectiles.ArcherArrows
 		
 		
 
-
+		//handles the collision of the arrows - main arrow is dealt with as normal - additional arrows are deleted after n seconds
 		void OnCollisionEnter(Collision collision)
 		{
 			if(ObjectsToStickTo.Contains(collision.gameObject.tag))
@@ -57,10 +60,21 @@ namespace Assets.Scripts.Projectiles.ArcherArrows
 				{
 					Invoke("StopProjectileFromBeingFollowed", 4.0f);
 				}
+				else
+				{
+					Invoke("AdditionalProjectileToBeRemoved", 6.0f);				
+				}
 			}
 
 		}
 
+		//method to remove additional arrows
+		private void AdditionalProjectileToBeRemoved()
+		{
+			WeaponsManager.instance.DestroyFiredProjectile(this.gameObject);
+		}
+
+		//identify to this script that the object is in flight through add force
 		public void InFlight()
 		{
 			this.inFlight = true;

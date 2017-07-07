@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Weapon_Archers : Weapon {
 
-	private int ArcherCount;
+	private int totalNumberOfArchers;
 	private List<GameObject> ArrowProjectiles;
 
 	public void Awake()
@@ -17,7 +17,7 @@ public class Weapon_Archers : Weapon {
 		SwitchAmmo();
 
 		//to be implement with increased archers
-		ArcherCount = 3;
+		totalNumberOfArchers = 3;
 	}
 
 
@@ -103,20 +103,27 @@ public class Weapon_Archers : Weapon {
 
 
 
-	IEnumerable FireAdditionArrows(GameObject AmmoProjectile)
+	IEnumerator FireAdditionArrows(GameObject AmmoProjectile)
 	{
 
 		int totalNumberOfArchers = 5;
 
-		GameObject LastArrowFired = AmmoProjectile;
+		//GameObject LastArrowFired = AmmoProjectile;
 
 		for (int i = 1; i < totalNumberOfArchers; i++)
 		{
 
-			int offsetX = Random.Range(1, 5);
-			int offsetZ = Random.Range(1, 5);
+			int offsetX = Random.Range(-2, 4);
+			int offsetZ = Random.Range(-2, 3);
 
-			GameObject newArrow = Instantiate(Ammo, new Vector3(AmmoLoadPos.transform.position.x + offsetX, AmmoLoadPos.transform.position.y, AmmoLoadPos.transform.position.z + offsetZ), AmmoProjectile.transform.rotation) as GameObject;
+			GameObject newArrow = Instantiate(Ammo, new Vector3(AmmoLoadPos.transform.position.x + offsetX, AmmoLoadPos.transform.position.y, AmmoLoadPos.transform.position.z + offsetZ), AmmoLoadPos.transform.rotation) as GameObject;
+
+
+
+			newArrow.transform.rotation = AmmoLoadPos.transform.rotation;
+
+			//rotate the arrow - remove it created in correct direction
+			newArrow.transform.Rotate(0, +90, 0);
 
 			newArrow.GetComponent<Collider>().enabled = true;
 
@@ -124,10 +131,10 @@ public class Weapon_Archers : Weapon {
 			//initialise rigidbody's gravity
 			newArrow.GetComponent<Rigidbody>().useGravity = true;
 
-			newArrow.GetComponent<Rigidbody>().AddForce(-AmmoProjectile.transform.forward * ProjectileForceApplied, ForceMode.Acceleration);
+			newArrow.GetComponent<Rigidbody>().AddForce(newArrow.transform.forward * ProjectileForceApplied, ForceMode.Acceleration);
 			Arrow_Projectile arrow = newArrow.GetComponent<Arrow_Projectile>();
 			arrow.InFlight();
-			yield return WaitForSeconds(5);
+			yield return new WaitForSeconds(0.1f);
 		}
 
 	}
