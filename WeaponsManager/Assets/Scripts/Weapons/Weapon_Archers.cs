@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Projectiles;
+﻿using Assets.Scripts.Debugging;
+using Assets.Scripts.Projectiles;
 using Assets.Scripts.Projectiles.ArcherArrows;
 using System.Collections;
 using System.Collections.Generic;
@@ -192,7 +193,8 @@ public class Weapon_Archers : Weapon {
 		}
 		else
 		{
-			Debug.Log("Weapon already loaded");
+			Debugger.Trace("Weapon already loaded");
+			//Debug.Log("Weapon already loaded");
 		}
 
 	}

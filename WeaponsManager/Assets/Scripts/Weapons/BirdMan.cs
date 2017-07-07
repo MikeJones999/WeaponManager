@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Projectiles;
+﻿using Assets.Scripts.Debugging;
+using Assets.Scripts.Projectiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace Assets.Scripts.Weapons
 			if (weaponLoaded)
 			{
 				firingInProgress = true;
+				
 				Debug.Log("Fired : weapon");
 				// WeaponModel.GetComponent<Animator>().Play("FireShot");
 				AmmoCount--;
@@ -36,7 +38,8 @@ namespace Assets.Scripts.Weapons
 			}
 			else
 			{
-				Debug.Log("No ammo loaded - handle with UI notice!!!!");
+				Debugger.Trace("No ammo loaded - handle with UI notice!!!!");
+				//Debug.Log("No ammo loaded - handle with UI notice!!!!");
 			}
 		}
 		public override void FireProjectile()
