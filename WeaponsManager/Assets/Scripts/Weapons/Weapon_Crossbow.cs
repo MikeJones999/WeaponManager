@@ -39,7 +39,7 @@ public class Weapon_Crossbow : Weapon
 	public override void FireProjectile()
 	{
 		//disconnect ammo from parent
-		// var temp = AmmoProjectile.transform.parent;
+	    //var temp = AmmoProjectile.transform.parent;
 		AmmoProjectile.transform.parent = null;
 
 		//enable the collider on the ammo so it can connect with other objects
@@ -52,7 +52,7 @@ public class Weapon_Crossbow : Weapon
 
 
 		//addforce (fire) using ammo's force parameter
-		 AmmoProjectile.GetComponent<Rigidbody>().AddForce(-AmmoProjectile.transform.forward * ProjectileForceApplied, ForceMode.Acceleration);
+		 AmmoProjectile.GetComponent<Rigidbody>().AddForce(-AmmoProjectile.transform.forward * ProjectileForceApplied, ForceMode.Impulse);
 		//AmmoProjectile.transform.Rotate(25, 0, 0);
 	  //AmmoProjectile.GetComponent<Rigidbody>().AddForce(new Vector3(1, 0, 0) * ProjectileForceApplied, ForceMode.Force);
 

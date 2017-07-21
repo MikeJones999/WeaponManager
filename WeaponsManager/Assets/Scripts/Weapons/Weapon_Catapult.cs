@@ -22,9 +22,12 @@ namespace Assets.Scripts.Weapons
 		{
 
 			//disconnect ammo from parent - however keep the object in memory to align the ball when  firing
-			var parentObj = AmmoProjectile.transform.parent;
+
+			//var parentObj = AmmoProjectile.transform.parent;
+
 			//as we are going to rotate the parent obj - will need to rotate it back - thus get its default rotation for later
-			var temp = AmmoProjectile.transform.parent.rotation;
+			//var temp = AmmoProjectile.transform.parent.rotation;
+
 			//disconnect from parent
 			AmmoProjectile.transform.parent = null;
 
@@ -37,16 +40,18 @@ namespace Assets.Scripts.Weapons
 			//Get angle, if not 45deg set to 45deg
 
 			//rotate the parent object - as below - cant seem to rotate the projectile the same
-			parentObj.Rotate(-45, 180, 0);
+			//parentObj.Rotate(-45, 180, 0);
 
-		   // AmmoProjectile.transform.Rotate (-45,90,0);
-			
+			//AmmoProjectile.transform.Rotate (-45,90,0);
+
 
 			//addforce (fire) using projectile's parent forward force parameter
-			AmmoProjectile.GetComponent<Rigidbody>().AddForce(parentObj.forward * ProjectileForceApplied, ForceMode.Acceleration);
+			//AmmoProjectile.GetComponent<Rigidbody>().AddForce(parentObj.forward * ProjectileForceApplied, ForceMode.Acceleration);
+
+			AmmoProjectile.GetComponent<Rigidbody>().AddForce(AmmoProjectile.transform.forward * ProjectileForceApplied, ForceMode.Impulse);
 
 			//now rotate parent object back to as its default
-			parentObj.rotation = temp;
+			//parentObj.rotation = temp;
 			//Weapon shown as not loaded
 			weaponLoaded = false;
 
@@ -87,6 +92,7 @@ namespace Assets.Scripts.Weapons
 							//Weapon is now loaded so stop it being loaded at the moment
 							this.weaponLoaded = true;
 							this.projectileExists = true;
+							AmmoProjectile.transform.Rotate(-45, 90, 0);
 						}
 						
 					}
