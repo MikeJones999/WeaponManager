@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Projectiles;
+using Assets.Scripts.Projectiles.Ballista;
 using System;
 using UnityEngine;
 
@@ -61,6 +62,8 @@ public class Weapon_Crossbow : Weapon
 		//Weapon shown as not loaded
 		weaponLoaded = false;
 
+		Ballista_Projectile arrow = AmmoProjectile.GetComponent<Ballista_Projectile>();
+		arrow.InFlight();
 
 		//camera follow until object destroyed
 		CameraFollowProjectile();

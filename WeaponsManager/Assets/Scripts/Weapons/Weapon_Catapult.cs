@@ -23,7 +23,7 @@ namespace Assets.Scripts.Weapons
 
 			//disconnect ammo from parent - however keep the object in memory to align the ball when  firing
 
-			//var parentObj = AmmoProjectile.transform.parent;
+			var parentObj = AmmoProjectile.transform.parent;
 
 			//as we are going to rotate the parent obj - will need to rotate it back - thus get its default rotation for later
 			//var temp = AmmoProjectile.transform.parent.rotation;
@@ -42,7 +42,9 @@ namespace Assets.Scripts.Weapons
 			//rotate the parent object - as below - cant seem to rotate the projectile the same
 			//parentObj.Rotate(-45, 180, 0);
 
-			//AmmoProjectile.transform.Rotate (-45,90,0);
+		    AmmoProjectile.transform.Rotate (0,90, -60);
+
+			//Quaternion shoot = AmmoProjectile.transform.localRotation;   //(0, 90, 0);
 
 
 			//addforce (fire) using projectile's parent forward force parameter
@@ -61,6 +63,8 @@ namespace Assets.Scripts.Weapons
 
 			//tell camera manager that Animation has now stopped - so that it can follow the projectile
 			CameraManagerInformAnimationBeingPlayed(false);
+
+			
 		}
 
 
@@ -80,7 +84,7 @@ namespace Assets.Scripts.Weapons
 					{
 						
 						//There is a a position attached to the weapon that an object can be created at - therefore create a copy of the ammo prefab (attached to this script) and place it at AmmoLoadPos
-						AmmoProjectile = Instantiate(Ammo, new Vector3(AmmoLoadPos.transform.position.x, AmmoLoadPos.transform.position.y + 0.15f, AmmoLoadPos.transform.position.z), Quaternion.identity) as GameObject;
+						AmmoProjectile = Instantiate(Ammo, new Vector3(AmmoLoadPos.transform.position.x, AmmoLoadPos.transform.position.y + 0.15f, AmmoLoadPos.transform.position.z), AmmoLoadPos.transform.rotation) as GameObject;
 						
 						//Now that the object is created - get the script attached to it called projectile - and then get the force of this particular projectile type. - Projectile is an abstract class. This saves us having to hard code the value each time for different projectiles
 						this.ProjectileForceApplied = AmmoProjectile.GetComponent<Projectile>().GetProjectileForce();
@@ -92,7 +96,7 @@ namespace Assets.Scripts.Weapons
 							//Weapon is now loaded so stop it being loaded at the moment
 							this.weaponLoaded = true;
 							this.projectileExists = true;
-							AmmoProjectile.transform.Rotate(-45, 90, 0);
+							//AmmoProjectile.transform.Rotate(0, 0, 45);
 						}
 						
 					}
@@ -167,7 +171,7 @@ namespace Assets.Scripts.Weapons
 			transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, -rotateY, transform.localEulerAngles.z);
 			if (weaponLoaded)
 			{
-				AmmoProjectile.transform.rotation = AmmoProjectile.transform.parent.rotation;
+				//AmmoProjectile.transform.rotation = AmmoProjectile.transform.parent.rotation;
 			}
 		}
 

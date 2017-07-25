@@ -6,7 +6,7 @@ public class ArcherArrowStd_Projectile : Arrow_Projectile
 {
 		void Awake()
 		{
-			SetProjectileForce(1000);
+			SetProjectileForce(20);
 			isDestroyableAfterImpact = false;
 		}
 

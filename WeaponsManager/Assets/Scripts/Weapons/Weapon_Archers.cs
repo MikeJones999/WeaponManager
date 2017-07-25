@@ -72,7 +72,7 @@ public class Weapon_Archers : Weapon {
 
 
 		//addforce (fire) using projectile's parent forward force parameter
-		AmmoProjectile.GetComponent<Rigidbody>().AddForce(-AmmoProjectile.transform.forward * ProjectileForceApplied, ForceMode.Acceleration);
+		AmmoProjectile.GetComponent<Rigidbody>().AddForce(-AmmoProjectile.transform.forward * ProjectileForceApplied, ForceMode.Impulse);
 
 		
 
@@ -132,7 +132,7 @@ public class Weapon_Archers : Weapon {
 			//initialise rigidbody's gravity
 			newArrow.GetComponent<Rigidbody>().useGravity = true;
 
-			newArrow.GetComponent<Rigidbody>().AddForce(newArrow.transform.forward * ProjectileForceApplied, ForceMode.Acceleration);
+			newArrow.GetComponent<Rigidbody>().AddForce(-newArrow.transform.forward * ProjectileForceApplied, ForceMode.Impulse);
 			Arrow_Projectile arrow = newArrow.GetComponent<Arrow_Projectile>();
 			arrow.InFlight();
 			yield return new WaitForSeconds(0.1f);
