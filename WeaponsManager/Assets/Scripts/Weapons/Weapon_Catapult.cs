@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Projectiles;
+﻿using Assets.Scripts.Debugging;
+using Assets.Scripts.Projectiles;
 using System;
 using UnityEngine;
 
@@ -37,14 +38,22 @@ namespace Assets.Scripts.Weapons
 
 			//initialise rigidbody's gravity
 			AmmoProjectile.GetComponent<Rigidbody>().useGravity = true;
-			//Get angle, if not 45deg set to 45deg
+
+
+		
 
 			//rotate the parent object - as below - cant seem to rotate the projectile the same
 			//parentObj.Rotate(-45, 180, 0);
+			//rotate this arrow to face forward z axis - this will be changed in future
+			AmmoProjectile.transform.Rotate (0,90, 0);
 
-		    AmmoProjectile.transform.Rotate (0,90, -60);
+			//Get angle, if not 45deg set to 45deg
+			var angle = AmmoProjectile.transform.rotation.eulerAngles.x;
+			Debugger.Trace("Weapon_Catapult.cs - Angle of Projectile: " + angle.ToString());
+			AmmoProjectile.transform.localEulerAngles = new Vector3(-45.0f, AmmoProjectile.transform.rotation.eulerAngles.y, AmmoProjectile.transform.rotation.eulerAngles.z);
 
-			//Quaternion shoot = AmmoProjectile.transform.localRotation;   //(0, 90, 0);
+
+			Debugger.Trace("Weapon_Catapult.cs - New Angle of Projectile: " + angle.ToString());
 
 
 			//addforce (fire) using projectile's parent forward force parameter

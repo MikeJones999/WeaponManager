@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Debugging;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-	class Projectile_Trajectory : MonoBehaviour
+class Projectile_Trajectory : MonoBehaviour
 	{
 		private LineRenderer lr;
 		public int lineRes = 10;
@@ -40,19 +41,27 @@ using UnityEngine;
 
 		void FixedUpdate()
 		{
-			//update the line
-			CalculateTrajectory();
+
+	
+
+		//update the line
+		CalculateTrajectory();
 		   
 
-	}
+	    }
 
 		void CalculateTrajectory()
 		{
+
+		//var angle = loadingpoint.transform.rotation.eulerAngles.z;
+		//Debugger.Trace("Weapon_Catapult.cs - Angle of Projectile: " + angle.ToString());
+
 		float vy = (force /objMass) * Mathf.Sin((angle * Mathf.Deg2Rad));
 		float vx = (force/ objMass) * Mathf.Cos((angle * Mathf.Deg2Rad));
 			float dx = loadingpoint.transform.position.x;
 			float dy = loadingpoint.transform.position.y;
 		    float z = loadingpoint.transform.position.z;
+		//float x = 0;
 
 	//	AmmoProjectile.transform.rotation = AmmoProjectile.transform.parent.rotation;
 
@@ -61,6 +70,7 @@ using UnityEngine;
 
 			if (i == 0)
 			{
+				
 				dx = 0;
 				dy = 0;
 				z = 0;
