@@ -1,0 +1,166 @@
+fileFormatVersion: 2
+guid: f966ed8f256f27d4da5561a970108b37
+timeCreated: 1501187338
+licenseType: Free
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: B_LEVER
+    100002: B_LEVER_2
+    100004: //RootNode
+    100006: BALLISTA
+    100008: BOW
+    100010: CINEMA_4D_Editor
+    100012: HULL
+    100014: HULL_2
+    100016: L_BOW
+    100018: L_BOW_2
+    100020: L_ROPE
+    100022: L_ROPE_2
+    100024: L_WHEEL
+    100026: L_WHEEL_2
+    100028: LOCK
+    100030: LOCK_2
+    100032: M_ROPE
+    100034: M_ROPE_2
+    100036: R_BOW
+    100038: R_BOW_2
+    100040: R_ROPE
+    100042: R_ROPE_2
+    100044: R_WHEEL
+    100046: R_WHEEL_2
+    100048: ROPE
+    100050: WHEELS
+    400000: B_LEVER
+    400002: B_LEVER_2
+    400004: //RootNode
+    400006: BALLISTA
+    400008: BOW
+    400010: CINEMA_4D_Editor
+    400012: HULL
+    400014: HULL_2
+    400016: L_BOW
+    400018: L_BOW_2
+    400020: L_ROPE
+    400022: L_ROPE_2
+    400024: L_WHEEL
+    400026: L_WHEEL_2
+    400028: LOCK
+    400030: LOCK_2
+    400032: M_ROPE
+    400034: M_ROPE_2
+    400036: R_BOW
+    400038: R_BOW_2
+    400040: R_ROPE
+    400042: R_ROPE_2
+    400044: R_WHEEL
+    400046: R_WHEEL_2
+    400048: ROPE
+    400050: WHEELS
+    2000000: CINEMA_4D_Editor
+    2300000: B_LEVER_2
+    2300002: HULL_2
+    2300004: L_BOW_2
+    2300006: L_ROPE_2
+    2300008: L_WHEEL_2
+    2300010: LOCK_2
+    2300012: M_ROPE_2
+    2300014: R_BOW_2
+    2300016: R_ROPE_2
+    2300018: R_WHEEL_2
+    3300000: B_LEVER_2
+    3300002: HULL_2
+    3300004: L_BOW_2
+    3300006: L_ROPE_2
+    3300008: L_WHEEL_2
+    3300010: LOCK_2
+    3300012: M_ROPE_2
+    3300014: R_BOW_2
+    3300016: R_ROPE_2
+    3300018: R_WHEEL_2
+    4300000: L_WHEEL_2
+    4300002: R_WHEEL_2
+    4300004: L_BOW_2
+    4300006: R_BOW_2
+    4300008: M_ROPE_2
+    4300010: R_ROPE_2
+    4300012: L_ROPE_2
+    4300014: LOCK_2
+    4300016: B_LEVER_2
+    4300018: HULL_2
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
