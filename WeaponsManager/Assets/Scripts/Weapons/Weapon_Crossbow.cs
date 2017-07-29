@@ -141,7 +141,7 @@ public class Weapon_Crossbow : Weapon
 		////Used to set the ball forward on first click
 		if (rotateY == 0.0f)
 		{
-			rotateY = 0.0f;
+			rotateY = 90.0f;
 		}
 		rotateY = Mathf.Clamp(rotateY, 45.0f, 135.0f);
 

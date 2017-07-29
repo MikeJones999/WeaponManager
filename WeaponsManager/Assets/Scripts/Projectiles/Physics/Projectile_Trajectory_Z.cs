@@ -51,6 +51,12 @@ namespace Assets.Scripts.Projectiles.Physics
 
 		}
 
+		public void UpdateAngle(float angle)
+		{
+			this.angle = angle;
+		}
+
+
 		void CalculateTrajectory()
 		{
 
