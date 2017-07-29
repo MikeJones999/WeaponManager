@@ -53,8 +53,9 @@ public class Weapon_Crossbow : Weapon
 
 
 		//addforce (fire) using ammo's force parameter
-		 AmmoProjectile.GetComponent<Rigidbody>().AddForce(-AmmoProjectile.transform.forward * ProjectileForceApplied, ForceMode.Impulse);
-		//AmmoProjectile.transform.Rotate(25, 0, 0);
+		 AmmoProjectile.GetComponent<Rigidbody>().AddForce(AmmoProjectile.transform.forward * ProjectileForceApplied, ForceMode.Impulse);
+
+		AmmoProjectile.transform.Rotate(0, 90, 0);
 	  //AmmoProjectile.GetComponent<Rigidbody>().AddForce(new Vector3(1, 0, 0) * ProjectileForceApplied, ForceMode.Force);
 
 	   
@@ -91,7 +92,7 @@ public class Weapon_Crossbow : Weapon
 					//AmmoProjectile.transform.position = new Vector3(AmmoProjectile.transform.localPosition.x + 0.75f, AmmoProjectile.transform.position.y, AmmoProjectile.transform.position.z);
 
 
-					AmmoProjectile.transform.Rotate(0, -90, 0);
+					//AmmoProjectile.transform.Rotate(0, -90, 0);
 
 					//Now that the object is created - get the script attached to it called projectile - and then get the force of this particular projectile type. - Projectile is an abstract class. This saves us having to hard code the value each time for different projectiles
 					this.ProjectileForceApplied = AmmoProjectile.GetComponent<Projectile>().GetProjectileForce();
@@ -138,19 +139,19 @@ public class Weapon_Crossbow : Weapon
 		rotateX += Input.GetAxis("Mouse Y") * sensitivity;
 
 		////Used to set the ball forward on first click
-		//if (rotateY == 0.0f)
-  //      {
-  //          rotateY = 0.0f;
-  //      }
-		rotateY = Mathf.Clamp(rotateY, -45.0f, 45.0f);
+		if (rotateY == 0.0f)
+		{
+			rotateY = 0.0f;
+		}
+		rotateY = Mathf.Clamp(rotateY, 45.0f, 135.0f);
 
 		//added rotation up and down for crossbow - limits the collision with the ground - issue with rigid body
 		rotateX = Mathf.Clamp(rotateX, -9.0f, 3.0f);
-		transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, -rotateY, -rotateX);
+		transform.localEulerAngles = new Vector3(-rotateX, -rotateY, transform.localEulerAngles.z);
 		if (weaponLoaded)
 		{
 			AmmoProjectile.transform.rotation = AmmoLoadPos.transform.rotation;
-		    AmmoProjectile.transform.Rotate(0, -90, 0);
+		   // AmmoProjectile.transform.Rotate(0, -90, 0);
 		}
 	}
 

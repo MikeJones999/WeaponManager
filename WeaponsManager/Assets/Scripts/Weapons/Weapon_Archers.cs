@@ -72,7 +72,7 @@ public class Weapon_Archers : Weapon {
 
 
 		//addforce (fire) using projectile's parent forward force parameter
-		AmmoProjectile.GetComponent<Rigidbody>().AddForce(-AmmoProjectile.transform.forward * ProjectileForceApplied, ForceMode.Impulse);
+		AmmoProjectile.GetComponent<Rigidbody>().AddForce(AmmoProjectile.transform.forward * ProjectileForceApplied, ForceMode.Impulse);
 
 		
 
@@ -132,7 +132,7 @@ public class Weapon_Archers : Weapon {
 			//initialise rigidbody's gravity
 			newArrow.GetComponent<Rigidbody>().useGravity = true;
 
-			newArrow.GetComponent<Rigidbody>().AddForce(-newArrow.transform.forward * ProjectileForceApplied, ForceMode.Impulse);
+			newArrow.GetComponent<Rigidbody>().AddForce(newArrow.transform.forward * ProjectileForceApplied, ForceMode.Impulse);
 			Arrow_Projectile arrow = newArrow.GetComponent<Arrow_Projectile>();
 			arrow.InFlight();
 			yield return new WaitForSeconds(0.1f);
@@ -162,7 +162,7 @@ public class Weapon_Archers : Weapon {
 					AmmoProjectile.transform.rotation = AmmoLoadPos.transform.rotation;
 					
 					//rotate the arrow - remove it created in correct direction
-					AmmoProjectile.transform.Rotate(0, -90, 0);
+					//AmmoProjectile.transform.Rotate(0, -90, 0);
 
 					//Now that the object is created - get the script attached to it called projectile - and then get the force of this particular projectile type. - Projectile is an abstract class. This saves us having to hard code the value each time for different projectiles
 					this.ProjectileForceApplied = AmmoProjectile.GetComponent<Projectile>().GetProjectileForce();
@@ -249,12 +249,12 @@ public class Weapon_Archers : Weapon {
 		{
 			rotateY = 0.0f;
 		}
-		rotateY = Mathf.Clamp(rotateY, -115.0f, 75.0f);
+		rotateY = Mathf.Clamp(rotateY, 45.0f, 135.0f);
 
 		//added rotation up and down for crossbow - limits the collision with the ground - issue with rigid body
-		rotateX = Mathf.Clamp(rotateX, 0.0f, 75.0f);
+		rotateX = Mathf.Clamp(rotateX, 10.0f, 90.0f);
 		transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rotateY, transform.localEulerAngles.z );
-		AmmoLoadPos.transform.localEulerAngles = new Vector3(AmmoLoadPos.transform.localEulerAngles.x, AmmoLoadPos.transform.localEulerAngles.y, rotateX); // - rotateX);
+		AmmoLoadPos.transform.localEulerAngles = new Vector3(-rotateX, AmmoLoadPos.transform.localEulerAngles.y, AmmoLoadPos.transform.localEulerAngles.z); // - rotateX);
 		//transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, -rotateY, -rotateX);
 		//if (weaponLoaded)
 		//{
