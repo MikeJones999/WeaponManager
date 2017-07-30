@@ -51,11 +51,11 @@ public class Weapon_Crossbow : Weapon
 		AmmoProjectile.GetComponent<Rigidbody>().useGravity = true;
 		//Get angle, if not 45deg set to 45deg
 
-
+        // AmmoProjectile.transform.Rotate(0, 90, 0);
 		//addforce (fire) using ammo's force parameter
 		 AmmoProjectile.GetComponent<Rigidbody>().AddForce(AmmoProjectile.transform.forward * ProjectileForceApplied, ForceMode.Impulse);
 
-		AmmoProjectile.transform.Rotate(0, 90, 0);
+		
 	  //AmmoProjectile.GetComponent<Rigidbody>().AddForce(new Vector3(1, 0, 0) * ProjectileForceApplied, ForceMode.Force);
 
 	   
