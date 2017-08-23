@@ -8,7 +8,9 @@ public class CameraManager : MonoBehaviour {
 
 	public static CameraManager instance;
 	public GameObject cameraDefault;
+	public GameObject cameraDefaultTopDown;
 	public bool inDefaultPosition;
+	public bool inTopDownViewPosition;
 	private GameObject CurrentWeaponFocus;
 	private bool followingProjectile;
 	private bool WeaponAnimInProgress;
@@ -73,6 +75,7 @@ public class CameraManager : MonoBehaviour {
 	private void DefaultPosition()
 	{
 		inDefaultPosition = true;
+		inTopDownViewPosition = false;
 		Camera.main.transform.position = cameraDefault.transform.position;
 		Camera.main.transform.rotation = cameraDefault.transform.rotation;
 		Camera.main.fieldOfView = fieldOfViewDefault;
@@ -85,10 +88,49 @@ public class CameraManager : MonoBehaviour {
 	{
 		//we should now be in default position
 		inDefaultPosition = true;
+		inTopDownViewPosition = false;
 		_endPosition = cameraDefault.transform.position;
-		var pos = CurrentWeaponFocus.transform.position;
+
+		Vector3 pos = Vector3.zero;
+		if (CurrentWeaponFocus != null)
+		{
+			pos = CurrentWeaponFocus.transform.position;
+		}
+		else
+		{
+			pos = cameraDefaultTopDown.transform.position;
+		}
 		var CamOffset = new Vector3(pos.x - offsetCamX, pos.y + offsetCamY, pos.z);
 		
+		_startPosition = CamOffset;
+		//Camera.main.transform.rotation = cameraDefault.transform.rotation;
+		Camera.main.fieldOfView = fieldOfViewDefault;
+		CurrentWeaponFocus = null;
+		ShowWeaponUI(false);
+		StartLerping();
+
+	}
+
+
+	private void ReturnToTopDownViewPosition()
+	{
+		//we should now be in default position
+		inDefaultPosition = false;
+		inTopDownViewPosition = true;
+		_endPosition = cameraDefaultTopDown.transform.position;
+
+		Vector3 pos = Vector3.zero;
+		if (CurrentWeaponFocus != null)
+		{
+			pos = CurrentWeaponFocus.transform.position;
+		}
+		else
+		{
+			pos = cameraDefault.transform.position;
+		}
+		
+		var CamOffset = new Vector3(pos.x - offsetCamX, pos.y + offsetCamY, pos.z);
+
 		_startPosition = CamOffset;
 		//Camera.main.transform.rotation = cameraDefault.transform.rotation;
 		Camera.main.fieldOfView = fieldOfViewDefault;
@@ -193,6 +235,7 @@ public class CameraManager : MonoBehaviour {
 	{ 
 		//pos = weapons position to move to
 		inDefaultPosition = false;
+		inTopDownViewPosition = false;
 		ShowWeaponUI(true);
 		//changed this line from cameradefault - to the camera itself so that this method can be used when moving from projectile to weapon
 		_startPosition = Camera.main.transform.position;
@@ -208,6 +251,9 @@ public class CameraManager : MonoBehaviour {
 		StartLerping();
 
 	}
+
+
+
 
 
 	// Use this for initialization
@@ -256,6 +302,35 @@ public class CameraManager : MonoBehaviour {
 			else
 			{
 				Debug.Log("Already in default view");
+			}
+		}
+	}
+
+
+	public void MoveToTopDownViewPos()
+	{
+		if (!inTopDownViewPosition)
+		{
+			if (!followingProjectile && !WeaponAnimInProgress)
+			{
+				//DefaultPosition();
+				ReturnToTopDownViewPosition();
+
+			}
+			else
+			{
+				Debug.Log("Cannot change to default view - as following Projectile");
+			}
+		}
+		else
+		{
+			if (Camera.main.transform.position != cameraDefaultTopDown.transform.position)
+			{
+				StrafeCamera("DefaultPos");
+			}
+			else
+			{
+				Debug.Log("Already in Top Down view");
 			}
 		}
 	}
@@ -425,7 +500,17 @@ public class CameraManager : MonoBehaviour {
 			//Constantly update looking at the weapon for smooth rotation
 			if (!inDefaultPosition)
 			{
-				Camera.main.transform.LookAt(CurrentWeaponFocus.transform);
+				
+				if (CurrentWeaponFocus != null)
+				{
+					Camera.main.transform.LookAt(CurrentWeaponFocus.transform);
+				}
+				else
+				{
+				  Camera.main.transform.LookAt(new Vector3(0,0,0));
+					
+				}
+				
 			}
 			else if (inDefaultPosition && CameraStrafing)
 			{
