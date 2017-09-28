@@ -124,7 +124,7 @@ public class Weapon_Archers : Weapon {
 			newArrow.transform.rotation = AmmoLoadPos.transform.rotation;
 
 			//rotate the arrow - remove it created in correct direction
-			newArrow.transform.Rotate(0, +90, 0);
+			//newArrow.transform.Rotate(0, +90, 0);
 
 			newArrow.GetComponent<Collider>().enabled = true;
 

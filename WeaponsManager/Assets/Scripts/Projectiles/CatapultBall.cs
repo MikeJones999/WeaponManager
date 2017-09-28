@@ -10,7 +10,7 @@ namespace Assets.Scripts.Projectiles
 
         void Awake()
         {
-            SetProjectileForce(800);
+            SetProjectileForce(1000);
             isDestroyableAfterImpact = false;
         }
     

@@ -38,6 +38,8 @@ public class CameraManager : MonoBehaviour {
 	//Whether we are currently interpolating or not
 	private bool _isLerping;
 
+	
+
 	//The start and finish positions for the interpolation
 	private Vector3 _startPosition;
 	private Vector3 _endPosition;
@@ -500,40 +502,49 @@ public class CameraManager : MonoBehaviour {
 			//Constantly update looking at the weapon for smooth rotation
 			if (!inDefaultPosition)
 			{
-				
+
 				if (CurrentWeaponFocus != null)
 				{
 					Camera.main.transform.LookAt(CurrentWeaponFocus.transform);
 				}
 				else
 				{
-				  Camera.main.transform.LookAt(new Vector3(0,0,0));
-					
+					if (percentageComplete >= 0.99f)
+					{
+						Camera.main.transform.LookAt(Vector3.zero);
+					}
+					else
+					{
+						Camera.main.transform.LookAt(GameCentrePoint);
+					}
 				}
-				
+
 			}
 			else if (inDefaultPosition && CameraStrafing)
 			{
 				//stay looking forward
 			}
-			else
+			else  //moving to default view - already set inDefaultPosition to true
 			{
-				Camera.main.transform.LookAt(Vector3.zero);
+				Camera.main.transform.LookAt(Vector3.zero);		
 			}
-			
+
 
 			//When we've completed the lerp, we set _isLerping to false
 			if (percentageComplete >= 1.0f)
-			{			
-				_isLerping = false;
+			{
+				_isLerping = false;			
 
 				//End the movement of the camera from strafing
 				if (inDefaultPosition && CameraStrafing)
 				{
 					CameraStrafing = false;
 				}
+
+				
 			}
 		}
+		
 	}
 
 	#region "Lerping Methods"
