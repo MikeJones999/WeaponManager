@@ -4,60 +4,10 @@ using UnityEngine;
 
 namespace Assets.Scripts.Projectiles.Physics
 {
-	class Projectile_Trajectory_Z : MonoBehaviour
-	{
+	class Projectile_Trajectory_Z : Projectile_Trajectory
+    {
 
-		private LineRenderer lr;
-		public int lineRes = 10;
-		private float grav;
-		public float angle = 45.0f;
-		public float force; // = 1300.0f;
-		public float objMass; // = 60.0f;
-		public GameObject loadingpoint;
-		public float dt = 0.1f;
-
-
-
-		private void Awake()
-		{
-			grav = Mathf.Abs(Physics2D.gravity.y);
-		}
-
-		void Start()
-		{
-			lr = gameObject.AddComponent<LineRenderer>();
-
-			lr.startWidth = 0.2f;
-
-			lr.positionCount = lineRes;
-
-			lr.startColor = Color.green;
-
-			//lr.useWorldSpace = false;
-
-			//loadingpoint.transform.Rotate(0, 45, 0);
-			// lr.transform.Rotate(0, 45, 0);
-		}
-
-
-		void FixedUpdate()
-		{
-
-
-
-			//update the line
-			CalculateTrajectory();
-
-
-		}
-
-		public void UpdateAngle(float angle)
-		{
-			this.angle = angle;
-		}
-
-
-		void CalculateTrajectory()
+		public override void CalculateTrajectory()
 		{
 
 			//var angle = loadingpoint.transform.rotation.eulerAngles.z;

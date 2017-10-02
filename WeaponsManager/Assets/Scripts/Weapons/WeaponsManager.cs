@@ -29,12 +29,28 @@ namespace Assets.Scripts.Weapons
                 return null;
         }
 
+
+        //sets the weapon selected to the current weapon - also enable projection line on new weapon and disable on old
         public void SetWeapon(Weapon weapon)
         {
             if (currentWeapon != weapon)
             {
+                if (currentWeapon != null)
+                {
+                    //turn off the current projection line
+                    Projectile_Trajectory temp = currentWeapon.FiringPoint.GetComponent<Projectile_Trajectory>();
+                    if (temp != null)
+                    {
+                        currentWeapon.FiringPoint.GetComponent<LineRenderer>().enabled = false;
+                        temp.enabled = false;
+                    }
+                }
+               
                 Debug.Log("***WeaponManager Changed weapon to " + weapon.ToString());
                 currentWeapon = weapon;
+                Projectile_Trajectory currentWeaponTrajectory = currentWeapon.FiringPoint.GetComponent<Projectile_Trajectory>();
+                if (currentWeaponTrajectory != null)
+                    currentWeaponTrajectory.enabled = true;
             }
         }
 

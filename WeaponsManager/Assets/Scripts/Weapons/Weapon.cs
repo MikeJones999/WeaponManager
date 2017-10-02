@@ -30,6 +30,7 @@ public abstract class Weapon : MonoBehaviour {
 	public GameObject WeaponModel;
 	protected GameObject Ammo;
 	public GameObject AmmoLoadPos;
+	public GameObject FiringPoint;
 	private bool WeaponIsMoving;
 	private bool collidedWithObject;
 
