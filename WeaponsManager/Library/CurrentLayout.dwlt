@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 6}
-  m_MinSize: {x: 950, y: 392}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -67,10 +67,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 679, y: 342}
-  m_MaxSize: {x: 12004, y: 8042}
+  m_MinSize: {x: 683, y: 342}
+  m_MaxSize: {x: 12008, y: 8042}
   vertical: 0
-  controlID: 58
+  controlID: 9
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -89,8 +89,8 @@ MonoBehaviour:
     y: 0
     width: 350
     height: 947
-  m_MinSize: {x: 277, y: 71}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -207,10 +207,10 @@ MonoBehaviour:
     y: 0
     width: 1570
     height: 947
-  m_MinSize: {x: 402, y: 342}
-  m_MaxSize: {x: 8002, y: 8042}
+  m_MinSize: {x: 406, y: 342}
+  m_MaxSize: {x: 8006, y: 8042}
   vertical: 1
-  controlID: 72
+  controlID: 10
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -231,10 +231,10 @@ MonoBehaviour:
     y: 0
     width: 1570
     height: 540
-  m_MinSize: {x: 402, y: 221}
-  m_MaxSize: {x: 8002, y: 4021}
+  m_MinSize: {x: 406, y: 221}
+  m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 73
+  controlID: 11
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -325,19 +325,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scripts/Weapons
+    - Assets/Scripts/Projectiles/Physics
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/Weapons
+  - Assets/Scripts/Projectiles/Physics
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Unity3d\Project Folder\TapeDeckGames\Physics\WeaponsManagerSystem\WeaponsManager
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 415}
-    m_SelectedIDs: 80260000
-    m_LastClickedID: 9856
-    m_ExpandedIDs: 000000004e2600007c2600007e26000080260000882600008a260000b0260000be260000c2260000c6260000de260000442700005a2700005e270000702700007c2700008e270000f0270000fa270000182800004e280000582800005e280000b6280000f62800004a3400004c3400004e3400005034000000ca9a3bffffff7f
+    m_SelectedIDs: 18280000
+    m_LastClickedID: 10264
+    m_ExpandedIDs: 00000000502600007e26000080260000822600008a2600008c260000b2260000c0260000c4260000c8260000e0260000462700005c27000060270000722700007e27000090270000f2270000fc2700001a280000502800005a28000060280000b8280000f828000056340000583400005a3400005c340000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -365,7 +365,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000004e2600007c2600007e26000080260000882600008a260000b0260000be260000c2260000c6260000de260000442700005a2700005e270000702700007c2700008e270000f0270000fa270000182800004e280000582800005e280000b6280000f62800004a3400004c3400004e34000050340000
+    m_ExpandedIDs: 00000000502600007e26000080260000822600008a2600008c260000b2260000c0260000c4260000c8260000e0260000462700005c27000060270000722700007e27000090270000f2270000fc2700001a280000502800005a28000060280000b8280000f828000056340000583400005a3400005c340000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -390,8 +390,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: faf2ffff
-    m_LastClickedInstanceID: -3334
+    m_SelectedInstanceIDs: 182a0000
+    m_LastClickedInstanceID: 10776
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: 68270000b6260000
     m_RenameOverlay:
@@ -481,9 +481,9 @@ MonoBehaviour:
     height: 519
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: faf2ffff
-    m_LastClickedID: -3334
-    m_ExpandedIDs: 90f2ffff2ef3ffff38f3ffff72f3ffff74f3ffff1afcffff000000003e290000262b0000c02b0000b22c00004e2d0000cc2d0000482e0000
+    m_SelectedIDs: bc2c0000
+    m_LastClickedID: 11452
+    m_ExpandedIDs: 90f2ffff14f3ffff3af3ffff72f3ffff74f3ffff1afcffff00000000bc2c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -565,7 +565,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.16946459, y: 0.29364225, z: -0.052978225, w: 0.93927586}
     speed: 2
-    m_Value: {x: 0.16946545, y: 0.29364374, z: -0.052978493, w: 0.9392806}
+    m_Value: {x: -0.16946459, y: -0.29364225, z: 0.05297823, w: -0.93927586}
   m_Size:
     m_Target: 18.869043
     speed: 2

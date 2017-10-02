@@ -35,24 +35,39 @@ namespace Assets.Scripts.Weapons
         {
             if (currentWeapon != weapon)
             {
-                if (currentWeapon != null)
-                {
-                    //turn off the current projection line
-                    Projectile_Trajectory temp = currentWeapon.FiringPoint.GetComponent<Projectile_Trajectory>();
-                    if (temp != null)
-                    {
-                        currentWeapon.FiringPoint.GetComponent<LineRenderer>().enabled = false;
-                        temp.enabled = false;
-                    }
-                }
-               
+                TurnOnOffProjectileFromPreviousWeapon(false);
+
                 Debug.Log("***WeaponManager Changed weapon to " + weapon.ToString());
                 currentWeapon = weapon;
-                Projectile_Trajectory currentWeaponTrajectory = currentWeapon.FiringPoint.GetComponent<Projectile_Trajectory>();
-                if (currentWeaponTrajectory != null)
-                    currentWeaponTrajectory.enabled = true;
+                TurnOnOffProjectileFromPreviousWeapon(true);          
+            }
+            else
+            {
+
+                TurnOnOffProjectileFromPreviousWeapon(true);
             }
         }
+        
+        //turn on / off the current projection line and line renderer
+        public void TurnOnOffProjectileFromPreviousWeapon(bool status)
+        {
+            if (currentWeapon != null)
+            {
+               
+                Projectile_Trajectory temp = currentWeapon.FiringPoint.GetComponent<Projectile_Trajectory>();
+                if (temp != null)
+                {
+                    LineRenderer line = currentWeapon.FiringPoint.GetComponent<LineRenderer>();
+                    if (line != null)
+                    {
+                        line.enabled = status;
+                    }
+                    temp.enabled = status;
+                }
+            }
+        }
+
+ 
 
         public void StartFireWeaponAnimation()
         {

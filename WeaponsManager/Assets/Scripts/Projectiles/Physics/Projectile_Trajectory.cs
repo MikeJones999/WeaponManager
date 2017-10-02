@@ -22,21 +22,21 @@ class Projectile_Trajectory : MonoBehaviour
 			grav = Mathf.Abs(Physics2D.gravity.y);
 		}
 
-		void Start()
-		{
-			lr = gameObject.AddComponent<LineRenderer>();
+    void Start()
+    {
+        lr = gameObject.AddComponent<LineRenderer>();
 
-			lr.startWidth = 0.2f;
+        lr.startWidth = 0.2f;
 
-			lr.positionCount = lineRes;
+        lr.positionCount = lineRes;
 
-			lr.startColor = Color.green;
+        lr.startColor = Color.green;
 
-			//lr.useWorldSpace = false;
+        //lr.useWorldSpace = false;
 
-		   //loadingpoint.transform.Rotate(0, 45, 0);
-		   // lr.transform.Rotate(0, 45, 0);
-	}
+        //loadingpoint.transform.Rotate(0, 45, 0);
+        // lr.transform.Rotate(0, 45, 0);
+    }
 
 
 		void FixedUpdate()

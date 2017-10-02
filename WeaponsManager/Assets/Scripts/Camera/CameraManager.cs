@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Projectiles;
+using Assets.Scripts.Weapons;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -288,8 +289,8 @@ public class CameraManager : MonoBehaviour {
 			{
 				//DefaultPosition();
 				ReturnToDefaultPosition();
-
-			}
+                WeaponsManager.instance.TurnOnOffProjectileFromPreviousWeapon(false);
+            }
 			else
 			{
 				Debug.Log("Cannot change to default view - as following Projectile");
@@ -317,8 +318,9 @@ public class CameraManager : MonoBehaviour {
 			{
 				//DefaultPosition();
 				ReturnToTopDownViewPosition();
+                WeaponsManager.instance.TurnOnOffProjectileFromPreviousWeapon(false);
 
-			}
+            }
 			else
 			{
 				Debug.Log("Cannot change to default view - as following Projectile");
