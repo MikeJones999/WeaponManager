@@ -350,7 +350,10 @@ public class CameraManager : MonoBehaviour {
 		ShowWeaponUI(false);
 		projectile = Ammo;
 		followingProjectile = true;
-	}
+        WeaponsManager.instance.TurnOnOffProjectileFromPreviousWeapon(false);
+
+    }
+
 
 	/**
 	 *Stops the camera from following the most recently shot projectile 
@@ -365,10 +368,14 @@ public class CameraManager : MonoBehaviour {
 			//Make a call to move camera back to weapon focus
 			MoveCameraToAWeaponPos(CurrentWeaponFocus.transform.position);
 		}
-	}
 
-	//obtain the centre position vector3 - presently from WaypointCreator.cs
-	public void setCentrePointLoc(Vector3 centreLoc)
+        WeaponsManager.instance.TurnOnOffProjectileFromPreviousWeapon(true);
+    }
+
+
+
+    //obtain the centre position vector3 - presently from WaypointCreator.cs
+    public void setCentrePointLoc(Vector3 centreLoc)
 	{
 		this.GameCentrePoint = centreLoc;
 	}
